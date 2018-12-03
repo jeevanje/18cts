@@ -1,5 +1,5 @@
 Rtoolsdir = "~/Dropbox/Rtools/"
-#setwd("~/Dropbox/17rad_cooling2/src/")
+setwd("~/Dropbox/18cts/src/")
 
 library(ncdf4)
 source(paste(Rtoolsdir,"thermo_tools.R",sep=""))
@@ -11,21 +11,22 @@ source("plot_params.R")
 cases = c("h2o_only_no_cont","co2_only_simple_atm")
 D     = 1.5  # diffusion parameter
 Nsec  = 3600*24   # sec/day
-fac   = g/Cp*Nsec*1e2  # pppf, SI to K/day/cm^-1
+fac   = -g/Cp*Nsec*1e2  # pppf, SI to K/day/cm^-1
 
 # plot params
-coo_lim = c(-0.005,0.015) # K/day/cm^-1
+coo_lim = c(-0.015,0.002) # K/day/cm^-1
 fields 	= c("coo","sx","ax","gex","cts","sum")
 fieldnames = c(expression(H[k]),"SX","AX","GX","CTS","sum")
 N_fields= length(fields)-1 # no sum
-ltyvec	= c("solid",rep("dashed",time=5))
+ltyvec	= c("dashed",rep("solid",time=5))
 colvec  = c("black","forestgreen","orange","red","blue","black")
 cex		= 2
 plab    = "p (hPa)"
 p_lim   = c(1000,0.1)
+Hklab   = expression(H[k]~~"("*K/day/cm^{-1}*")")
 
 # PDF
-file = "~/Dropbox/17rad_cooling2/plots/cooling_profiles.pdf"
+file = "../plots/cooling_profiles.pdf"
 pdf(file=file,width=12,height=10,bg="white")
 par(mfrow=c(2,3),mar=c(5,5,5,4))
 
@@ -73,23 +74,20 @@ for (i in 1:2){
 	gas     = substr(case,1,3)
 	gasname = gasnames[i]
 
+	#p1vals  = 1e2*c(50,500,800)
 	p1vals  = 1e2*c(300,550,800)
 	Np1     = length(p1vals)
-	mvals	= numeric(Np1)
 	kmin    = 3e4
 	mmin    = min(which(k>kmin))
 
     p1vec   = numeric(nk)
     for (m in 1:nk){
-        p1vec[m] = p[which.min(abs(opt[m,]-1))]
+        p1vec[m] = p_s[which.min(abs(opt_s[m,]-1))]
     }
 	
 	for (n in 1:Np1){
-	    p1       = p1vals[n]
-	    mvals[n] = which.min(abs(p1vec[(k>kmin)&(k<10e4)]-p1)) + mmin - 1
-	}
-	
-	for (m in mvals){
+	    p1      = p1vals[n]
+	    m 	    = which.min(abs(p1vec[(k>kmin)&(k<10e4)]-p1)) + mmin - 1
 	    kval    = k[m] 
 	    tauvals = opt[m,1:(np-1)]  #i
 	    Bvals   = B_s[m,] 	       #s
@@ -109,22 +107,27 @@ for (i in 1:2){
 	    plot(1,type="n",
 		    ylim = p_lim,
 		    xlim = coo_lim,
-		    xlab = "Cooling (K/day/cm^-1)",
+		    xaxt = "n",
+		    xlab = "",
 		    ylab = plab,
 		    main = bquote(.(gasname)*", k="~.(1e-2*kval)~c*m^{-1}*","~tau[s]==.(taus)),
 		    cex.lab  = cex,
 		    cex.axis = cex,
 		    cex.main = cex
 	    )
+	    axis(1,at=c(0,-0.01),labels=c("0","-0.01"),
+	    	 cex.axis=cex,lwd.ticks=2)
+		mtext(Hklab,side=1,line=3.5,cex=1.3)
 	    for (i in 1:N_fields){
 	    	temp = eval(as.name(fields[i]))
 			lty  = ltyvec[i]
 			col  = colvec[i]
 			points(fac*temp,1e-2*p_s,type="l",lwd=2,lty=lty,col=col)
 	    } # field loop
+	    abline(h=1e-2*p1,col="gray",lty="dashed")
 	}  # mvals loop
-	legend("topright",legend=fieldnames[1:N_fields],cex=cex, 
-	      lty=ltyvec,col=colvec,lwd=2)
+	legend("topleft",legend=fieldnames[1:N_fields],cex=cex, 
+	      lty=ltyvec,col=colvec,lwd=2,xpd="TRUE")
 
 } #case loop
 dev.off()
