@@ -22,7 +22,7 @@ plim   = c(1000,0)	  # hPa
 ylim   = plim
 ylab   = plab
 Hlim   = c(-3,0)     # K/day
-Hklim  = 0.01*c(-1,1)  # K/day/cm^-1
+Hklim  = 0.01*c(-1,0.1)  # K/day/cm^-1
 
 #=======#
 # Data  #
@@ -72,7 +72,7 @@ for (n_field in 1:length(fields)){
 #		xlim 	 = , 
 		ylim	 = plim,
 		zlim     = Hklim,
-		col		 = colvec,
+		#col		 = colvec,
 		xlab 	 = klab,
 		ylab     = plab,
 		main     = main,

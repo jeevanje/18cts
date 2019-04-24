@@ -10,27 +10,31 @@ source("plot_params.R")
 # data params
 cases = c("h2o_only_no_cont","co2_only_simple_atm")
 D     = 1.5  # diffusion parameter
-Nsec  = 3600*24   # sec/day
-fac   = -g/Cp*Nsec*1e2  # pppf, SI to K/day/cm^-1
 
 # plot params
 coo_lim = c(-0.015,0.002) # K/day/cm^-1
+Hlim_h2o = c(-3,0)
+Hlim_co2 = c(-0.7,0.2)
 fields 	= c("coo","sx","ax","gex","cts","sum")
 fieldnames = c(expression(H[k]),"SX","AX","GX","CTS","sum")
-N_fields= length(fields)-1 # no sum
-ltyvec	= c("dashed",rep("solid",time=5))
+N_fields= length(fields) # no sum
+ltyvec	= c("dashed",rep("solid",times=4),"solid")
 colvec  = c("black","forestgreen","orange","red","blue","black")
-cex		= 2
+lwd     = 4
+lwdvec  = c(rep(lwd,times=5),lwd-2.5)
+cex		= 1.75
+cex_leg = 1.5
 plab    = "p (hPa)"
 p_lim   = c(1000,0.1)
 Hklab   = expression(H[k]~~"("*K/day/cm^{-1}*")")
+gasnames = c(expression(H[2]*O),expression(C*O[2]))
 
 # PDF
-file = "../plots/cooling_profiles.pdf"
-pdf(file=file,width=12,height=10,bg="white")
-par(mfrow=c(2,3),mar=c(5,5,5,4))
+file = "../plots/both_taus20_profiles.pdf"
+pdf(file=file,width=10,height=6,bg="white")
+par(mfrow=c(1,2),mar=c(5,5,5,4))
 
-for (i in 1:2){
+for (i in 2:1){
 	case = cases[i]
 
 	#=======#
@@ -46,10 +50,10 @@ for (i in 1:2){
 	np      = length(p)
 	tabs    = ncvar_get(nc,"tabs")
 	nk		= length(k)
-	coo2d   = ncvar_get(nc,"coo")/fac     # convert to SI 
+	coo2d   = ncvar_get(nc,"coo")/coo2d_fac     # convert to SI 
 	opt     = D*ncvar_get(nc,"opt")
 	flx2d   = ncvar_get(nc,"flx")*1e-2    # W/m^2/m-1
-	
+
 	#=========#
 	# Process #
 	#=========#
@@ -64,9 +68,11 @@ for (i in 1:2){
 	opt_surf = opt[ ,1]%o%(rep(1,times=(np-1)))
 	B_surf   = B_i[ ,1]%o%(rep(1,times=(np-1)))
 	
-	cts2d	  = pi*B_s*exp(-opt_s)*dtaudp2d  #s, z_s, W/m^2/Pa/m^-1
-	gex2d     = -pi*(B_surf-B_s)*exp(-(opt_surf - opt_s))*dtaudp2d  #s, z_s
-	pppf2d    = (flx2d[ ,2:np]-flx2d[ ,1:(np-1)])/(rep(1,times=nk)%o%diff(p)) #slev
+	cts2d    = calc_cts2d(k,p,tabs_s,opt)
+	gex2d    = -pi*(B_surf-B_s)*exp(-(opt_surf - opt_s))*dtaudp2d  #s, z_s
+	pppf2d   = (flx2d[ ,2:np]-flx2d[ ,1:(np-1)])/(rep(1,times=nk)%o%diff(p)) #slev
+	cts1d    = apply(cts2d,2,sum)*dk
+	coo1d    = -apply(pppf2d,2,sum)*dk
 	
 	#=======#
 	# Plot  #
@@ -75,8 +81,9 @@ for (i in 1:2){
 	gasname = gasnames[i]
 
 	#p1vals  = 1e2*c(50,500,800)
-	p1vals  = 1e2*c(300,550,800)
-	Np1     = length(p1vals)
+	p1vals  = 1e2*c(300,700)
+	tausvals= c(20)
+	Np1     = length(tausvals)
 	kmin    = 3e4
 	mmin    = min(which(k>kmin))
 
@@ -86,8 +93,9 @@ for (i in 1:2){
     }
 	
 	for (n in 1:Np1){
-	    p1      = p1vals[n]
-	    m 	    = which.min(abs(p1vec[(k>kmin)&(k<10e4)]-p1)) + mmin - 1
+	    taus    = tausvals[n]
+	    m 	    = which.min(abs(opt[(k>kmin)&(k<8e4),1]-taus)) + mmin - 1
+		p1      = p1vec[m]
 	    kval    = k[m] 
 	    tauvals = opt[m,1:(np-1)]  #i
 	    tauvals_s = opt_s[m,1:(np-1)]  #s
@@ -111,24 +119,26 @@ for (i in 1:2){
 		    xaxt = "n",
 		    xlab = "",
 		    ylab = plab,
-		    main = bquote(.(gasname)*", k="~.(1e-2*kval)~c*m^{-1}*","~tau[s]==.(taus)),
+		    main = gasname,
 		    cex.lab  = cex,
 		    cex.axis = cex,
 		    cex.main = cex
 	    )
 	    axis(1,at=c(0,-0.01),labels=c("0","-0.01"),
 	    	 cex.axis=cex,lwd.ticks=2)
-		mtext(Hklab,side=1,line=3.5,cex=1.3)
+		mtext(Hklab,side=1,line=3.5,cex=cex)
 	    for (i in 1:N_fields){
 	    	temp = eval(as.name(fields[i]))
 			lty  = ltyvec[i]
 			col  = colvec[i]
-			points(fac*temp,1e-2*p_s,type="l",lwd=2,lty=lty,col=col)
+			lwd  = lwdvec[i]
+			points(coo2d_fac*temp,1e-2*p_s,type="l",lwd=lwd,lty=lty,col=col)
 	    } # field loop
 	    abline(h=1e-2*p1,col="gray",lty="dashed")
 	}  # mvals loop
-	legend("topleft",legend=fieldnames[1:N_fields],cex=cex, 
-	      lty=ltyvec,col=colvec,lwd=2,xpd="TRUE")
-
+	if (gas=="co2"){
+		legend("bottomleft",legend=fieldnames[1:N_fields],cex=cex_leg, 
+		      lty=ltyvec,col=colvec,lwd=lwdvec,xpd="TRUE")
+	}
 } #case loop
 dev.off()

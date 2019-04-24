@@ -38,7 +38,7 @@ for (taus in tausvals){
 # Plot
 divlab = expression("("*partialdiff[tau]*F*")"/O*L*R)
 taulab = expression(tau)
-lwd	   = 2
+lwd	   = 2.5
 cex	   = 1.25
 plot_decomp = function(taus,decomp){
 	for (var in vars){
@@ -47,10 +47,15 @@ plot_decomp = function(taus,decomp){
 #	divlim = range(c(AX,SX,CTS,GX))
 	divlim = c(-0.75,0.75)
 	taulim = rev(range(tau))
+	if (decomp=="old"){
+		main = "(a)  Old decomposition"
+	} else if (decomp=="new"){
+		main = "(b)  New decomposition"		
+	}
 	plot(1,type="n",xlim=divlim,ylim=taulim,
 			xlab = divlab,
 			ylab = taulab,
-			main = paste(decomp," decomposition",sep=""),
+			main = main,
 			cex.main = cex,
 			cex.lab  = cex,
 			cex.axis = cex

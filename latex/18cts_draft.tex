@@ -41,8 +41,6 @@
 \newcommand{\chkcts}{\ensuremath{\ch_k^\CTS}}
 \newcommand{\pierre}{P10}
 \newcommand{\pem}{\ensuremath{p_1}}
-\newcommand{\lk}{\ensuremath{l_k}}
-\newcommand{\lj}{\ensuremath{l_j}}
 \newcommand{\tauk}{\ensuremath{\tau_k}}
 \newcommand{\tauks}{\ensuremath{\tau_{k,s}}}
 \newcommand{\taus}{\ensuremath{\tau_s}}
@@ -62,26 +60,7 @@
 \newcommand{\WVP}{\ensuremath{\mathrm{WVP}}}
 \newcommand{\Tav}{\ensuremath{T_{\mathrm{av}}}}
 \newcommand{\Tstrat}{\ensuremath{T_{\mathrm{strat}}}}
-
-
-
-% kappa param variables
-\newcommand{\kapparot}{\ensuremath{\kappa_{\mathrm{rot}}}}
-\newcommand{\kappavr}{\ensuremath{\kappa_{\mathrm{vr}}}}
-\newcommand{\kappaQ}{\ensuremath{\kappa_Q}}
-\newcommand{\krot}{\ensuremath{k_\mathrm{rot}}}
-\newcommand{\kvr}{\ensuremath{k_\mathrm{vr}}}
-\newcommand{\konerot}{\ensuremath{k_{1\mathrm{rot}}}}
-\newcommand{\konevr}{\ensuremath{k_{1\mathrm{vr}}}}
-\newcommand{\kQ}{\ensuremath{k_Q}}
-\newcommand{\koneP}{\ensuremath{k_{1P}}}
-\newcommand{\koneR}{\ensuremath{k_{1R}}}
-\newcommand{\konej}{\ensuremath{k_{1j}}}
-\newcommand{\lrot}{\ensuremath{l_\mathrm{rot}}}
-\newcommand{\lvr}{\ensuremath{l_\mathrm{vr}}}
-\newcommand{\lQ}{\ensuremath{l_{Q}}}
-\newcommand{\vr}{\ensuremath{\mathbf{vr}}}
-\newcommand{\rot}{\ensuremath{\mathbf{rot}}}
+\newcommand{\PRE}{\ensuremath{\mathrm{PRE}}}
 
 
 %Variables
@@ -111,11 +90,11 @@
 \maketitle
 
 \begin{abstract}
-The cooling-to-space (CTS) approximation says that the radiative cooling of an atmospheric layer is dominated by that layer's emission to space, while radiative exchange with layers above and below largely cancel. While the CTS approximation is intuitive and its validity  has been demonstrated empirically, a theoretical justification is lacking. Furthermore, the CTS approximation cannot be universally valid, as it fails dramatically in the case of pure radiative equilibrium (PRE).
+The cooling-to-space (CTS) approximation says that the radiative cooling of an atmospheric layer is dominated by that layer's emission to space, while radiative exchange with layers above and below largely cancel. Though the CTS approximation has been demonstrated empirically and is thus fairly well-accepted, a theoretical justification is lacking. Furthermore, the intuition behind the CTS approximation cannot be universally valid, as the CTS approximation fails dramatically in the case of pure radiative equilibrium (PRE) where radiative cooling is identically zero.
 
-Motivated by this, we investigate the CTS approximation in detail. We first frame the CTS approximation in terms of  a novel decomposition of radiative flux divergence that better captures the cancellation of exchange terms. We then apply this decomposition to gray gas PRE  as well as line-by-line radiative cooling from \htwo\ in idealized radiative-convective equilibrium (RCE).  Using simple analytical theory we derive validity criteria for the CTS approximation, and use it to understand why the CTS approximation fails for PRE and works for \htwo\ in RCE. This criteria also correctly predicts that the CTS approximation holds only marginally for \cotwo.
+Motivated by this, we investigate the CTS approximation in detail. We first frame the CTS approximation in terms of  a novel decomposition of radiative flux divergence that better captures the cancellation of exchange terms. We then apply this decomposition to gray gas PRE  as well as line-by-line radiative cooling from \htwo\ in idealized radiative-convective equilibrium (RCE).  Using simple analytical theory we derive validity criteria for the CTS approximation, and use it to understand why the CTS approximation fails for PRE and works for \htwo\ in RCE. This criteria also correctly predicts that the CTS approximation holds only marginally for \cotwo\ in RCE.
 
-Finally, we consider column-integrated radiative cooling $Q$ from both \htwo\ and \cotwo. We derive basic inequalities relating $Q$ to its CTS approximation as well as to outgoing longwave radiation, and analyze where in the longwave spectrum these inequalities  saturate and become equalities.
+%Finally, we consider column-integrated radiative cooling $Q$ from both \htwo\ and \cotwo. We derive basic inequalities relating $Q$ to its CTS approximation as well as to outgoing longwave radiation, and analyze where in the longwave spectrum these inequalities  saturate and become equalities.
 
 
 %\vspace{0.5cm}
@@ -132,13 +111,16 @@ Finally, we consider column-integrated radiative cooling $Q$ from both \htwo\ an
 
 
 \section {Introduction}
-The cooling-to-space approximation is a venerable tool of radiative transfer. Formulated over 50 years ago \citep{green1967, rodgers1966}, it gives a simplified description of radiative cooling suitable for textbooks \citep{wallace2006,petty2006,thomas2002}, heuristics and idealized modeling \citep{jeevanjee2019,jeevanjee2018}, and  has served as a basis for comprehensive numerical calculation \citep[][]{joseph1976,fels1975,rodgers1966}. Its content is simply that radiative cooling in a given layer can be approximated as that layer's emission or cooling to space (CTS), as radiative exchange between atmospheric layers can be neglected. This claim  is quite intuitive, as  the  exchange terms   are sourced by the temperature \emph{difference} between layers, whereas the CTS term is sourced by the absolute temperature of a layer. Furthemore,   exchange with cooler layers above  offsets  exchange with warmer layers below. This `double cancellation' amongst exchange terms should then render them negligible.
+The cooling-to-space approximation is a venerable tool of radiative transfer. Formulated over 50 years ago \citep{zagoni2016, green1967, rodgers1966}, it gives a simplified description of radiative cooling suitable for textbooks \citep{wallace2006,petty2006,thomas2002}, heuristics and idealized modeling \citep{jeevanjee2019,jeevanjee2018}, and  has served as a basis for comprehensive radiation schemes  \citep[][]{joseph1976,fels1975,rodgers1966}. Its content is simply that radiative cooling in a given layer can be approximated as that layer's emission or cooling to space (CTS), as radiative exchange between atmospheric layers can be neglected. This claim  is quite intuitive, as  the  exchange terms   are sourced by the temperature \emph{difference} between layers, whereas the CTS term is sourced by the absolute temperature of a layer. Furthemore,   exchange with cooler layers above  offsets  exchange with warmer layers below. This `double cancellation' amongst exchange terms should render their sum negligible.
 
-\comment{add 50 years review reference}
+This logic is plausible, and the CTS approximation indeed seems to hold quite well for terrestrial atmospheric profiles. This  was shown in previous studies \citep[e.g.][]{clough1992,rodgers1966}, and is  also shown here in Figure \ref{cts_h2o}, which shows spectrally resolved cooling \chk\ as defined in Eqn. \eqnref{chk}, along with its CTS approximation [Eqn. \eqnref{chk_cts}], as calculated by a line-by-line radiative transfer model. (See Section \ref{sec_rce} for details of this calculation, as well as JF19 for a simple model which emulates these results.) However,  we encounter a paradox if we consider the textbook case of a gray gas atmosphere in pure radiative equilibrium \citep[PRE, e.g.][hereafter P10]{pierrehumbert2010}. This state has zero radiative cooling by definition, and thus the CTS term must be entirely canceled by the exchange terms.  This leads to two questions:
 
-This logic is plausible, and the CTS approximation indeed seems to hold quite well for terrestrial atmospheric profiles, as found in previous studies \citep[e.g.][]{clough1992,rodgers1966} and also shown in Figure \ref{cts_h2o}. At the same time, however, we encounter a paradox if we consider the textbook case of a gray gas atmosphere in pure radiative equilibrium \citep[PRE, e.g.][]{pierrehumbert2010}. This state has zero radiative cooling by definition, and thus the CTS term must be entirely canceled by the exchange terms.    How is this breakdown of the CTS approximation consistent  with the double cancellation argument given above? And if the CTS approximation can fail so dramatically in such simple circumstances, why does it work so well for Earth's atmosphere?
+\begin{enumerate}
+	\item How is the breakdown of the CTS approximation in PRE consistent  with the double cancellation argument given above?  \label{pre_invalid}
+	\item If the CTS approximation can fail so dramatically in such simple circumstances, why does it work so well for Earth's atmosphere? \label{rce_valid}
+\end{enumerate}
 
-The goal of this paper is to shed light on these questions, by  constructing  validity criteria for the CTS approximation capable of explaining its breakdown for the PRE state as well as its success for  \htwo.   A key ingredient in our analysis will be a refinement of the canonical decomposition of radiative flux divergence given by \cite{green1967} into a new decomposition which naturally captures the  double cancellation described above, and also isolates the contributions which do not cancel (Section \ref{sec_new_decomp}).  We apply this framework to gray PRE to understand how the CTS approximation breaks down in this case (Section \ref{sec_pre}), and then apply it to states of radiative-convective  equilibrium to discover when the CTS approximation should hold and why (Section \ref{sec_rce}).  We validate our analysis using line-by-line radiative transfer calculations performed with the Reference Forward Model (Section \ref{sec_rfm_calcs}), and conclude by considering the implications of our findings for column-integrated radiative cooling.
+The goal of this paper is to shed light on these questions.   A key ingredient in our analysis will be a refinement of the canonical decomposition of radiative flux divergence given by \cite{green1967} into a new decomposition which naturally captures the  double cancellation described above, and also isolates the contributions which do not cancel (Section \ref{sec_new_decomp}).  We apply this framework to gray PRE to understand how the CTS approximation breaks down in this case (Section \ref{sec_pre}).  We then apply this framework to states of real gas radiative-convective equilibrium (RCE), where we perform line-by-line radiative transfer calculations using the Reference Forward Model (Section \ref{sec_rce}). Along the way we construct  validity criteria for the CTS approximation capable of explaining its breakdown for the PRE state as well as its success for  \htwo\ in RCE, and which also correctly predicts that the CTS approximation should be only marginally  accurate for \cotwo\ in RCE.  We also consider the impact of the choice of vertical coordinate  on cooling profiles and the CTS approximation. 
 
 %==================%
 % Section new_decomp  %
@@ -147,7 +129,7 @@ The goal of this paper is to shed light on these questions, by  constructing  va
 \section{A new decomposition of radiative flux divergence} \label{sec_new_decomp}
 % sec_derivation
 \subsection{Derivation} \label{sec_derivation}
-We begin by constructing a new decomposition of radiative flux divergence. For clarity and simplicity we do this first for a two-stream gray gas with optical depth $\tau$ as the vertical coordinate, extending our formalism later to real gases and the more conventional pressure coordinate. Note that the gray gas analyses we perform here and throughout the paper can also be viewed as a two-stream spectrally resolved analysis at a single wavenumber $k$, provided that optical depth $\tau$ is replaced by a wavenumber-dependent optical depth $\tauk$, the gray net upward fluxes $F$ (\Wmsq)  are replaced by spectrally-resolved fluxes $F_k$ (\Wmsq/\cminverse), and that the gray source function $B=\sigma T^4$ (\Wmsq)  is replaced  by the hemispherically integrated spectral  Planck function $\pi B(k,T)$ (\Wmsq/\cminverse). 
+We begin by constructing a new decomposition of radiative flux divergence. For clarity and simplicity we do this first for a two-stream gray gas with optical depth $\tau$ as the vertical coordinate, extending our analysis later to real gases and the more conventional pressure coordinate. Note that the gray gas analyses we perform here and throughout the paper can also be viewed as a two-stream spectrally resolved analysis at a single wavenumber $k$, provided that optical depth $\tau$ is replaced by a wavenumber-dependent optical depth $\tauk$, the gray net upward fluxes $F$ (\Wmsq)  are replaced by spectrally-resolved fluxes $F_k$ (\Wmsq/\cminverse), and that the gray source function $B=\sigma T^4$ (\Wmsq)  is replaced  by the hemispherically integrated spectral  Planck function $\pi B(k,T)$ (\Wmsq/\cminverse). 
 
 The new decomposition we pursue is in some sense a refinement of the standard decomposition of radiative flux divergence  found in textbooks, which says that radiative cooling in a given atmospheric layer can be decomposed into that layer's cooling to space, as well as its radiative exchange with layers above and below as well as the ground. Formally this can be expressed as \citep[e.g.][]{petty2006,thomas2002}:
 	\begin{subequations}
@@ -163,28 +145,28 @@ The new decomposition we pursue is in some sense a refinement of the standard de
 		\end{align}
 		\label{old_decomp}
 	\end{subequations}
-Here \taus\ is the surface optical depth and \Bs\ is the value of the source function at the surface, which may be discontinuous from the source function $B(\taus)$ of the \emph{air} at the surface. The GX term in \eqnref{gx_def}  is  the `ground exchange' term  representing exchange between level $\tau$ and the surface. The CTS term in \eqnref{cts_def} is  the product of the source function and the transmissivity $e^{-\tau}$ and thus represents the cooling-to-space. The \CTS\ approximation is then just the claim that this term dominates \eqref{old_decomp}),  i.e. that
+Here \taus\ is the surface optical depth and \Bs\ is the value of the source function at the surface, which may be discontinuous from the source function $B(\taus)$ of the \emph{air} at the surface. The GX term in \eqnref{gx_def}  is  the `ground exchange' term,  representing exchange between level $\tau$ and the surface. The CTS term in \eqnref{cts_def} is  the product of the source function and the transmissivity $e^{-\tau}$ and thus represents the cooling-to-space. The \CTS\ approximation is then just the claim that this term dominates \eqref{old_decomp},  i.e. that
 \beqn
 	\pptau F \ \approx \  - B(\tau)e^{-\tau}  \quad \quad   \text{(CTS approx.)} 
 	\label{cts_approx}
 \eeqn
-(As an important aside, note that CTS term  \eqref{cts_def} has weighting function $e^{-\tau}$, which on its own does \emph{not} maximize at $\tau=1$; see \cite{huang2014} or \cite{jeevanjee2019}, hereafter JF19, for further discussion). The \EXbelow\ and \EXabove\  terms in \eqnref{exch_below}--\eqnref{exch_above} represent radiative exchange  with layers below and above. As mentioned above, these terms are sourced by temperature differences, unlike the CTS term, and since temperatures change monotonically over large swaths of atmosphere (troposphere, stratosphere, etc.), \EXbelow\ and \EXabove\ typically have opposite signs and thus offset each other. A key point, however, is that the degree to which they cancel is in part tied to their respective ranges of integration: if $\taus-\tau$ is not comparable to $\tau$, i.e. if the emissivity above level $\tau$ is not comparable to that below $\tau$, then the integrals in \eqnref{exch_below} and \eqnref{exch_above} will not be comparable, inhibiting cancellation. This possibility is key for understanding how the CTS approximation can break down. 
+(As an important aside, note that CTS term  \eqref{cts_def} has weighting function $e^{-\tau}$, which on its own does not exhibit the usual maximum at $\tau=1$; see Section \ref{sec_real_rce} for further discussion.) The \EXbelow\ and \EXabove\  terms in \eqnref{exch_below}--\eqnref{exch_above} represent radiative exchange  with layers below and above. As mentioned above, these terms are sourced by temperature differences, unlike the CTS term, and since temperatures change monotonically over large swaths of atmosphere (e.g. the troposphere, stratosphere, etc.), \EXbelow\ and \EXabove\ typically have opposite signs and thus offset each other. A key point, however, is that the degree to which they cancel is in part tied to their respective ranges of integration: if $\taus-\tau$ is not comparable to $\tau$, i.e. if the emissivity above level $\tau$ is not comparable to that below $\tau$, then the integrals in \eqnref{exch_below} and \eqnref{exch_above} will not be comparable, inhibiting cancellation. This possibility is key for understanding how the CTS approximation can break down. 
 
-To separate out the parts of \EXbelow\ and \EXabove which might cancel each other, we first change the dummy integration variable in  Eqns.  \eqnref{exch_below} and \eqnref{exch_above} to measure the optical distance from level $\tau$, i.e. we set
+To separate out the parts of \EXbelow\ and \EXabove\ which might cancel each other, we first change the dummy integration variable in  Eqns.  \eqnref{exch_below} and \eqnref{exch_above} to measure the optical distance from level $\tau$, i.e. we set
 $x \equiv \tau-\tau'$ in \eqnref{exch_above} and $x \equiv \tau'-\tau$ in \eqnref{exch_below}. This yields
 \begin{align}	
 \EXbelow &\  = \ \int_{0}^{\taus - \tau} [B(\tau+x)-B(\tau)]e^{-x} \, dx \n \\	
 \EXabove &\ = \ -\int_{0}^{ \tau} [B(\tau)-B(\tau-x)]e^{-x} \, dx 	\ . \n
 \end{align}	
-The \EXbelow\ and \EXabove\ integrals now look similar but with potentially different limits of integration. Cancellation will most naturally occur between those parts of the integral with the same range of integration, so we combine them. To do this we first consider the case where $\tau < \taus/2$ (i.e. that the layer below is optically deeper than that above, Fig. \ref{decomp_cartoon}b). In this case we split the \EXbelow\ integral into an integral over the $x$ interval $(0,\tau)$ (same as the range for the \EXabove\ integral), and an integral over the $x$ interval $(\tau,\taus-\tau)$. Combining these with  the \EXabove\ integral,  then gives:
+The \EXbelow\ and \EXabove\ integrals now look similar, but with potentially different limits of integration. Cancellation will most naturally occur between those parts of the integral with the same range of integration, so we combine them. To do this we first consider the case where $\tau < \taus/2$ (i.e.  the layer below is optically deeper than that above, Fig. \ref{decomp_cartoon}b). In this case we split the \EXbelow\ integral into an integral over the $x$ interval $(0,\tau)$ (same as the range for the \EXabove\ integral), and an integral over the $x$ interval $(\tau,\taus-\tau)$. Combining these terms with  the \EXabove\ integral  then gives:
 \begin{subequations}
 	\begin{align}
 	\EXbelow \  + \EXabove \ = & \quad    \ \int_0^\tau[B(\tau+x)-2B(\tau)+B(\tau-x)]e^{-x}\, dx   & &\quad (\SX,\ \tau < \taus/2)  \label{sx1} \\
 										  & + \ \int_\tau^{\taus-\tau}[B(\tau+x)-B(\tau)]e^{-x}\, dx  & & \quad  (\AX, \ \tau < \taus/2) \label{ax1}
 	\end{align}
- The integral in \eqnref{sx1} represents exchange between level $\tau$ and layers both above and below with equal optical thickness, so we refer to it as the `symmetric exchange' (SX) term. The integral in \eqnref{ax1} represents  the residual, uncompensated cooling from layers further above, which we refer to as the `asymmetric exchange' (AX) term. The regions contributing to these terms are shown schematically in Fig. \ref{decomp_cartoon}b.	
+ The integral in \eqnref{sx1} represents exchange between level $\tau$ and layers both above \emph{and} below with equal optical thickness, so we refer to it as the `symmetric exchange' (SX) term. The integral in \eqnref{ax1} represents  the residual, uncompensated heating from layers further below, which we refer to as the `asymmetric exchange' (AX) term. The regions contributing to these terms are shown schematically in Fig. \ref{decomp_cartoon}b.	
  
- Note that the \SX\ integrand \eqnref{sx1} looks like a finite-difference approximation for a second derivative; in fact, if $B$ is linear in $\tau$ then \SX\ vanishes, because the cooling from the layer of depth $\tau$ above exactly cancels the heating from the layer of depth $\tau$ below. This difference of differences \emph{is} the `double cancellation' described above, and  in fact occurs in gray models of pure radiative equilibrium (Section \ref{sec_pre}).  Furthermore, in the limit that the \SX\ term can indeed be approximated by a second derivative, we obtain the `diffusive' approximation to radiative cooling well-known from  textbooks \citep[e.g.][]{pierrehumbert2010,goody1989}. Note also that it is the SX term which yields strong radiative heating and cooling at the tropopause and stratopause respectively \citep[e.g.][]{clough1995}, as $B$ has local extrema there. 
+ Note that the \SX\ integrand \eqnref{sx1} looks like a finite-difference approximation for a second derivative; in fact, if $B$ is linear in $\tau$ then \SX\ vanishes, because the cooling from the layer of depth $\tau$ above exactly cancels the heating from the layer of depth $\tau$ below. This difference of differences is the `double cancellation' described above, and  in fact occurs in gray models of pure radiative equilibrium (Section \ref{sec_pre}).  Furthermore, in the limit that the \SX\ term can indeed be approximated by a second derivative, we obtain the `diffusive' approximation to radiative cooling well-known from  textbooks \citep[e.g.][]{pierrehumbert2010,goody1989}. Note also that it is the SX term which yields strong radiative heating and cooling at the tropopause and stratopause respectively \citep[e.g.][]{clough1995}, as $B$ has local extrema there and thus the \EXbelow\ and \EXabove\ contributions do not compensate. 
 	
 %	The \AX\ term \eqnref{ax1}, then, gives the residual, uncompensated heating from any part of the layer below with optical depth greater than $2\tau$ (Fig. \ref{decomp_cartoon}). Note that if $\tau$ is large, then  \AX\ is constrained to be small by the exponential in Eqn. \eqnref{ax1}. Physically, if $\tau$ is large then the symmetric layer around level $\tau$ is optically thick, and any uncompensated heating from more remote layers below is highly attenuated by the low transmissivity to that layer.  which represents exchange between level $\tau$ and that part of the atmosphere not included in \SX, which will lie entirely at either greater or smaller $\tau$ values (Fig. \ref{cts_decomp_cartoon}c). Thus \AX\  contains only a first-order finite difference.
  
@@ -195,10 +177,9 @@ If $\tau>\taus/2$, on the other hand,  then we split the \EXabove\  (rather than
 	\end{align} 
 \label{sx_ax_decomp}
 \end{subequations}
-The regions now contributing to SX and AX are shown in Fig. \ref{decomp_cartoon}a.
-%Now the \AX\ term gives any residual cooling due to layers above with optical depth less than $2\tau-\taus$ (Fig. \ref{decomp_cartoon}b). We will see below that this cooling can be significant, and is in fact responsible for the strong near-surface cooling in Fig. \ref{cts_h2o_co2}. Also, and analogously to the $\tau< \taus/2$ case, if $\taus-\tau$ is large then the symmetric layer around level $\tau$ is again optically thick, and any uncompensated cooling from more remote layers above is highly attenuated by the low transmissivity to that layer.
+The regions now contributing to SX and AX are shown in Fig. \ref{decomp_cartoon}a. Note that AX now represents a cooling from layers above, rather than a heating from layers below. We will see that this cooling is responsible for the failure of the CTS approximation near the surface shown in Fig. \ref{cts_h2o}.
 
-  With these definitions of \SX\ and \AX\ in hand we may then write our new decomposition of radiative flux divergence as 
+With these definitions of \SX\ and \AX\ in hand we may then write our new decomposition of radiative flux divergence as 
 	\beqn
 		\ddtau{F} \ = \ \CTS \ + \ \SX + \ \AX \ + \  \GX \  . 
 		\label{new_decomp}
@@ -206,7 +187,7 @@ The regions now contributing to SX and AX are shown in Fig. \ref{decomp_cartoon}
 
 % sec_scale 
 \subsection{Scale analysis} \label{sec_scale}	
-Note that the behavior of the various terms in \eqnref{new_decomp}, and hence the validity of the CTS approximation \eqnref{cts_approx}, depend largely on the behavior of $B(\tau)$. Indeed, besides $\taus$ and \Bs, $B(\tau)$  is the only variable in our system.  To analyze how the properties of  $B(\tau)$ influence the CTS approximation, we first approximate all finite differences as derivatives, so that the terms in \eqnref{new_decomp} roughly scale as follows (ignoring exponential transmissivity factors  as well as any integration):
+Note that the only quantities appearing so far are \taus, \Bs, and $B(\tau)$, with $B(\tau)$ the only function. Ignoring the parameters \taus\ and \Bs\ for the moment, we focus on  how the properties of  $B(\tau)$ influence the CTS approximation.  If we approximate all finite differences of $B(\tau)$ as derivatives, then the terms in \eqnref{new_decomp} roughly scale as follows (ignoring exponential transmissivity factors  as well as any integration):
 \beqn
 	\begin{split}
 		\CTS \ & \ \sim \  \ B \\
@@ -224,15 +205,15 @@ This shows that the \CTS\ term is distinguished by the fact that it represents o
 	\eeqa
 	\label{cts_criterion1}
 \end{subequations}
-We will apply this heuristic validity criterion for the CTS approximation  in the next section.
+This is our first validity criterion for the CTS approximation. We will apply it to pure radiative equilibrium in the next section, and refine it into a more precise criterion in Section \ref{sec_rce_crit}. 
 
 %==============%
 % Section PRE        %
 %==============%
 \section{Pure radiative equilibrium} \label{sec_pre}
-We now apply the old and new decompositions \eqnref{old_decomp} and \eqnref{new_decomp} as well as the validity criterion \eqnref{cts_criterion1} to a gray gas in pure radiative equilibrium (PRE). We seek in this section to resolve the paradox posed in the introduction, and also provide a simplified context in which to compare decompositions as well as understand the breakdown of the CTS approximation. In contrast to the more realistic radiative-convective equilibrium considered in the next section, here the temperature profile (as manifest in the source function $B$) is part of the solution, rather than being some fixed function of $z$ or $p$ (such as a moist adiabat). Thus, in this case it is natural to continue working in $\tau$ coordinates. 
+We now apply the old and new decompositions \eqnref{old_decomp} and \eqnref{new_decomp} as well as the validity criterion \eqnref{cts_criterion1} to a gray gas in pure radiative equilibrium (PRE). We do this to to provide a simplified context in which to compare decompositions, and also to better understand how the CTS approximation breaks down, resolving the paradox highlighted in question \ref{pre_invalid} from the introduction.
 
-The two-stream gray PRE solution with upwelling and downwelling fluxes $U$ and  $D$ are given by \citep{pierrehumbert2010} 
+The two-stream gray PRE solution is written most naturally in $\tau$ coordinates. Denoting the gray upwelling and downwelling fluxes by $U$ and  $D$, this solution is (P10): 
 %\beqn
 %	\der{U}{\tau}  =  U -  B \ , \quad \quad \der{D}{\tau} =  B -  D \ .
 %	\label{gray_eqns}
@@ -249,7 +230,7 @@ The two-stream gray PRE solution with upwelling and downwelling fluxes $U$ and  
 	\end{align}
 Note that the source function at the surface \Bs\ is discontinuous with that in the atmosphere and is found by requiring continuity of $U$ at the surface, $\Bs = U(\taus)$. It is straightforward to check that the PRE solution above  satisfies the PRE constraint $U+D=2B$, which just says that the outgoing thermal emission per unit optical depth $2B$ is equal to the absorbed upwelling and downwelling flux per unit optical depth, $U+D$. 
 
-We now plug in the solution \eqnref{B_pre}  for $B(\tau)$ into the old decomposition \eqnref{old_decomp} and integrate where necessary to obtain analytical expressions for the various components of the flux divergence:
+We now apply plug the old decomposition \eqnref{old_decomp} to the solution \eqnref{B_pre}  for $B(\tau)$, integrating where necessary to obtain analytical expressions for the various components of the flux divergence:
 \beqn
 	\begin{split}
 		\CTS &\ = \ -\ \frac{\OLR}{2}(1+\tau)e^{-\tau} \\
@@ -259,29 +240,29 @@ We now plug in the solution \eqnref{B_pre}  for $B(\tau)$ into the old decomposi
 	\end{split}
 	\label{pre_old_decomp}
 \eeqn
-These terms add to 0, as they must, and are plotted for $\taus=20$ in Fig. \ref{pre_decomp}a. The CTS and GX terms behave  equally and oppositely at their respective boundaries , with the discontinuity in $B$ at the surface  yielding a temperature jump equivalent to that between the atmosphere and space. The \EXabove\ and \EXbelow\ terms cancel throughout most of the atmosphere, but decline towards the boundaries as the optical thickness of the relevant exchange layers declines to 0. In this picture, the CTS term does not dominate even  for $\tau \sim O(1)$ due to cancellation by \EXbelow, even though \EXbelow\ itself is partially canceled by \EXabove.
+These terms add to 0, as they must, and are plotted for $\taus=20$ in Fig. \ref{pre_decomp}a. The CTS and GX terms behave  equally and oppositely at their respective boundaries , with the discontinuity $\Bs-B(\taus)$ at the surface  yielding a temperature jump equivalent to the jump between the atmosphere and space. The \EXabove\ and \EXbelow\ terms cancel throughout most of the atmosphere, but decline towards the boundaries as the optical thickness of the relevant exchange layers declines to 0. In this picture, the CTS term does not dominate even  for $\tau \sim O(1)$ due to cancellation by \EXbelow, even though \EXbelow\ itself is partially canceled by \EXabove.
 
-A clearer picture is obtained by plugging in our PRE solution \eqnref{B_pre}  into the new decomposition \eqnref{new_decomp}, which yields
+A clearer picture is obtained by applying the new decomposition \eqnref{new_decomp} to our PRE solution \eqnref{B_pre},  which yields
 \beqn
 	\begin{split}
 		\CTS &\ =\  -\frac{\OLR}{2}(1+\tau)e^{-\tau} \\
 		\SX   &\ =\  0 \\
-		\AX   &\ =\  \frac{\OLR}{2}\left[-(\taus-\tau)e^{-(\taus-\tau)} + \tau e^{-\tau} - e^{-(\taus-\tau)} + e^{-\tau}\right] \\
+		\AX   &\ =\  \frac{\OLR}{2}\left[-(\taus-\tau+1)e^{-(\taus-\tau)} + (1+\tau) e^{-\tau} \right] \\
 		\GX   &\ =\  \frac{\OLR}{2}(\taus-\tau+1)e^{-(\taus-\tau)}  \ .
 	\end{split}
 	\label{pre_new_decomp}
 \eeqn
-These terms again add to 0, as they must, but now  the \SX\ term is also itself identically 0 because $B$ is linear in $\tau$, as mentioned above. This simplicity highlights the advantages of the new decomposition. Each term in \eqnref{pre_new_decomp} is plotted for $\taus=20$ in Fig. \ref{pre_decomp}b. In this picture the residual, uncompensated exchange heating in \AX\ is constrained to be small throughout most of the atmosphere, but provides a significant heating around $\tau\sim O(1)$ (due to uncompensated heating from layers below) and a significant cooling around $(\taus-\tau)\sim O(1)$ (due to uncompensated cooling from layers above). Furthermore, in PRE in particular the $B$ profile adjusts such that the heating around $\tau\sim O(1)$ exactly cancels the \CTS\ term, and the cooling around $(\taus-\tau)\sim O(1)$ exactly cancels the \GX\ term. 
+These terms again add to 0, as they must, but now  the \SX\ term is also itself identically 0 because $B$ is linear in $\tau$. This simplicity highlights the advantages of the new decomposition. Each term in \eqnref{pre_new_decomp} is plotted for $\taus=20$ in Fig. \ref{pre_decomp}b. In this picture, the residual, uncompensated exchange heating in \AX\ is suppressed  throughout most of the atmosphere, due to the $e^{-x}$ transmissivity factor in Eqns. \eqnref{ax1} and \eqnref{ax2}. Near the boundaries, however, this suppression eases, and AX provides a significant heating around $\tau\sim O(1)$  and  cooling around $(\taus-\tau)\sim O(1)$. Furthermore, in PRE in particular the $B$ profile adjusts such that the AX heating around $\tau\sim O(1)$ exactly cancels the \CTS\ term, and the AX cooling around $(\taus-\tau)\sim O(1)$ exactly cancels the \GX\ term. 
 
-Thus, what happens in PRE is that the double cancellation argument holds perfectly ($\SX=0$), but only to the extent that there is appreciable optical depth both above and below a given layer (which suppresses \AX). This assumption is implicit in the double cancellation  heuristic and can indeed hold throughout much of the atmosphere, but will fail near the boundaries, producing significant exchange heating (Fig. \ref{pre_decomp}b).  In terms of our criterion \eqnref{cts_criterion1}, the criterion \eqnref{cts_db2dt2} holds but criterion \eqnref{cts_dbdt} fails, as \eqnref{B_pre} shows that $dB/dT \sim B$, at least for $\tau \sim O(1)$ where the CTS term is significant.
+Thus, what happens in PRE is that the double cancellation argument holds perfectly (i.e. $\SX=0$), but only to the extent that there is appreciable optical depth both above and below a given layer (which suppresses \AX). This assumption is implicit in the double cancellation  heuristic and can indeed hold throughout much of the atmosphere, but will fail near the boundaries, producing significant exchange heating.  In terms of our criterion \eqnref{cts_criterion1}, the criterion \eqnref{cts_db2dt2} holds but  \eqnref{cts_dbdt} fails, as \eqnref{B_pre} shows that $dB/dT \sim B$, at least for $\tau \sim O(1)$ where the CTS term is significant.
 
 %===========%
 % Ssection rce  %
 %===========%
 \section{Radiative convective-equilibrium} \label{sec_rce}
 
-% sec_rce_decomp_analysis
-\subsection{Gray RCE} \label{sec_rce_decomp_analysis}
+% sec_rce_crit
+\subsection{Precise criterion for the CTS approximation} \label{sec_rce_crit}
 Having considered the simpler PRE case, we now turn to more realistic radiative cooling from atmospheres in radiative-convective equilibrium (RCE). As emphasized above and as was evident for PRE, the decomposition \eqnref{new_decomp} and the validity of the CTS approximation \eqnref{cts_approx} all depend on the form of $B(\tau)$. In RCE however,  the temperature (or $B$) profile is no longer part of the solution but is instead given by a pre-determined convective adiabat (one may take this as the definition of RCE in this context). For simplicity, we take this adiabat to have a constant lapse rate $\Gamma$, so that  
 \beqn
 	T \ = \ \Ts(p/\ps)^{\Rd\Gamma/g} 
@@ -303,11 +284,23 @@ and also assume that
 	\label{Btau1}
 \eeqn
  where
-  \beqn
- 	\gamma \ = \ \frac{\alpha R_d\Gamma}{g\beta} \ .
-	\label{gamma_def}
+ \begin{subequations}
+	  \beqa
+ 		\gamma & \equiv & \der{\ln B}{\ln \tau} \label{gamma_def} \\[5pt]
+					 &    = 	   & \underbrace{\left(\der{\ln B}{\ln T}\right)}_{\text{src func.}} \underbrace{\left(\der{\ln T}{\ln p}\right)}_{\text{atm. state}}\underbrace{\left(\der{\ln\tau}{\ln p}\right)^{-1}}_{\text{GHG dist.}} 
+					 						\label{gamma_facs} \\[5pt]
+				 	&    = 	   &  \alpha  \frac{R_d\Gamma}{g} \frac{1}{\beta} \ . \label{gamma_rce}
+	\eeqa
+	\label{gamma_eqns}
+\end{subequations}
+The parameter $\gamma$ is critical for what follows, as it determines how rapidly thermal emission varies with optical depth. Furthermore, as Eqn. \eqnref{gamma_facs} shows $\gamma$ is a combination of multiple factors, and it is worth pausing to compare and contrast them. The factor $\alpha = d \ln B/ d \ln T$ in \eqnref{gamma_facs}  is a property of the source function only, must be externally specified, and does not depend on atmospheric state or greenhouse gas (GHG) concentrations. The optical depth exponent $\beta = d\ln \tau/d \ln p$ indicates how `bottom-heavy' the greenhouse gas and optical depth distributions are (with respect to pressure), and must also be externally specified.  The lapse rate factor $d \ln T/ d\ln P$ gives the atmospheric temperature profile, but whether or not it is externally specified differs profoundly between PRE and RCE. In PRE the $\gamma$ profile is fixed by the solution \eqnref{B_pre} to be 
+\beqn
+	\gamma_{\mathrm{PRE}} \  \equiv \ \tau/(1+\tau) \ ,
+	\n
 \eeqn
-The parameter $\gamma$ is critical for what follows, as it determines how rapidly thermal emission varies with optical depth. Plugging \eqnref{Btau1} into the rough scalings \eqnref{cts_decomp_ders1} yields
+ and $d \ln T/ d\ln P$ then takes on whatever values are required to satisfy this. In RCE, however, it is $d \ln T/ d\ln P$ which is fixed [e.g. Eqn. \eqnref{Tp}], and this then determines the $\gamma$ profile (which is not determined \emph{a priori}).
+
+Proceeding on, we plug \eqnref{Btau1} into the rough scalings \eqnref{cts_decomp_ders1} to obtain 
 %(and note that since $\int_0^\infty e^{-x}dx =1$, all the integrals must be bounded above by a characteristic  value of their integrand) 
 \begin{subequations}
 	\begin{align}
@@ -317,60 +310,66 @@ The parameter $\gamma$ is critical for what follows, as it determines how rapidl
 	\end{align}
 	\label{cts_decomp_ders2}
 \end{subequations}
-i.e. the exchange terms should be enhanced/suppressed by one or more factors of $\gamma$ relative to the \CTS\ term. Indeed, a somewhat more rigorous analysis (Appendix \ref{appendix_cts}) shows that near $\tau=1$,
+which says that the exchange terms should be enhanced/suppressed by one or more factors of $\gamma$ relative to the \CTS\ term. Indeed, a somewhat more rigorous analysis (Appendix \ref{appendix_cts}) shows that for $\taus \gg1 $ and near $\tau=1$,
 \beqn
 	\begin{split}
 	 	\CTS|_{\tau=1} & \ = \  - \frac{B}{e}   \\
  		\SX|_{\tau=1} &\ \approx   \ \frac{\gamma(\gamma-1) }{6} B  \\
- 		\AX|_{\tau=1} & \ \approx  \  \frac{2\gamma }{ e} B   \\
+ 		\AX|_{\tau=1} & \ \approx  \   \frac{2\gamma }{ e} B   \\
 \		\GX|_{\tau=1} & \ \lesssim  \  \frac{\gamma }{ e } B   \ .
 \end{split}
 \label{cts_decomp_tau1}
 \eeqn
-This shows that at least near $\tau=1$, the CTS approximation \eqnref{cts_criterion1}  will be satisfied if 
+Thus when $\taus \gg 1$ and near $\tau=1$, the CTS approximation \eqnref{cts_approx}  will be satisfied if 
 \begin{align}
-	\hspace{6cm}  \gamma  \ll 1 \  \hspace{2cm}  \text{(CTS criterion in RCE) . }
+	 \gamma  \ll 1 \ . 
 	\label{cts_criterion2}
 \end{align}
+This is a more precise version of our first CTS criterion \eqnref{cts_criterion1}. Note that since  $\left. \gamma_{\mathrm{PRE}}\right|_{\tau=1} =  0.5 $,  PRE indeed fails the criterion \eqnref{cts_criterion2}, as it should.
+
 
 % rfm_calcs
 \subsection{RFM calculations} \label{sec_rfm_calcs}
-To further analyze real gas radiative cooling in RCE we use the line-by-line Reference Forward Model for longwave radiative transfer \citep[RFM,][]{dudhia2017}. We input  HITRAN spectroscopic data for \htwo\ from 0--1500 \cminverse\  using only the most common isotopologue, and use an idealized RCE atmospheric profile with a surface temperature of 300 K,  a constant lapse rate of $\Gamma= 7\ \Kelvin/\km$ up to to an isothermal stratosphere at $200$ K, and a relative humidity of 0.75. We ran RFM at a spectral resolution of 1 \cminverse\ and output optical depth and heating rates as a function of wavenumber and pressure. Profiles of the exchange terms AX and SX  were produced by feeding \tauk\ profiles output from RFM into an offline code which numerically evaluates  Eqns. \eqnref{sx_ax_decomp}. The CTS and GX terms are straightforwardly evaluated from \eqnref{cts_def} and \eqnref{gx_def}.
- 
- For simplicity in comparing to our offline decomposition, optical depth calculations assumed a zenith angle of 0, and heating rates were computed using a two-stream approximation (rather than RFM's default 4-stream) as well as assuming constant $B(k,T)$ within atmospheric layers. We also omit the water vapor continuum and do not consider overlap between \htwo\ and \cotwo, effects which largely cancel in spectrally-integrated profiles (JF19). These omissions do not affect our conclusions (cf. Section \ref{sec_summary})
- 
-\subsection{Real gas RCE}
-How well is the criterion \eqnref{cts_criterion2} satisfied for real  \htwo\ in RCE? To evaluate $\gamma$ we need to estimate $\alpha$ and $\beta$ from Eqns. \eqnref{BT} and \eqnref{taup}. For $\alpha$, note that $\alpha = \partialder{ \ln B(k,T)}{\ln T}$ has a characteristic value of about 4 near CO2 band center ($k\sim 667 \cminverse$) and $T=250$ K (not shown). We thus set $\alpha=4$, coincident with the gray gas value. For $\beta$, JF19 found a typical value of $\beta_{\htwo} = 5.5$. Plugging all of this as well as $\Gamma=7$ K/km into \eqnref{gamma_def} yields
+To further analyze real gas radiative cooling in RCE, we perform  line-by-line radiative transfer calculations using the Reference Forward Model  \citep[RFM,][]{dudhia2017}. We input  HITRAN spectroscopic data for \htwo\ from 0--1500 \cminverse\  using only the most common isotopologue, and use an idealized RCE atmospheric profile with a surface temperature of 300 K,  a constant lapse rate of $\Gamma= 7\ \Kelvin/\km$ up to to an isothermal stratosphere at $200$ K, and a relative humidity of 0.75. We ran RFM at a spectral resolution of 1 \cminverse\ and a vertical resolution of 500 m below 15 km, 1 km between 15 and 30 km, and 2.5 km up to model top at 50 km.
+We output optical depth and fluxes as a function of wavenumber and pressure. Profiles of the exchange terms AX and SX  were produced by feeding \tauk\ profiles output from RFM into an offline code which numerically evaluates  Eqns. \eqnref{sx_ax_decomp}. The CTS and GX terms are straightforwardly evaluated from \eqnref{cts_def} and \eqnref{gx_def}. 
+
+ For simplicity in comparing to our offline decomposition, optical depth calculations assumed a zenith angle of 0, and fluxes   were computed using a two-stream approximation (rather than RFM's default 4-stream) with a diffusivity factor of $D=1.5$, as well as assuming constant $B(k,T)$ within atmospheric layers. We also omit the water vapor continuum and do not consider overlap between \htwo\ and \cotwo, effects which largely cancel in spectrally-integrated profiles (JF19). These omissions do not affect our conclusions (cf. Section \ref{sec_summary}) 
+  
+ % Section real_rce 
+\subsection{Real gas RCE} \label{sec_real_rce}
+How well is the criterion \eqnref{cts_criterion2} satisfied for real  \htwo\ in RCE? To evaluate $\gamma$ we need to estimate $\alpha$ and $\beta$ from Eqns. \eqnref{BT} and \eqnref{taup}. For $\alpha$, note that $\alpha = \partialder{ \ln B(k,T)}{\ln T}$ has a characteristic value of about 4 near \cotwo\ band center ($k\sim 667\ \cminverse$) and $T=250$ K (not shown). We thus set $\alpha=4$, coincident with the gray gas value. For $\beta$, JF19 found a typical value of $\beta_{\htwo} = 5.5$. Plugging all of this as well as $\Gamma=7$ K/km into \eqnref{gamma_rce} yields
 	\beqn
 		\gamma_{\htwo}   \ = \ 0.15  \ ,
 		\label{gamma_h2o}
 		\n
 	\eeqn
-which is reasonably consistent with \eqnref{cts_criterion2}. Note that this yields a theoretical basis for the \CTS\ approximation in Earth's atmosphere, answering one of the questions we posed in the introduction.
+which is reasonably consistent with \eqnref{cts_criterion2}. Note that this yields a theoretical basis for the \CTS\ approximation in Earth's atmosphere, answering question \ref{rce_valid} from the introduction.
 
-The above analysis also allows us to understand how the validity of the CTS approximation might vary with atmospheric state and GHG concentrations. By \eqnref{gamma_def}, we see that larger lapse rates degrade the CTS approximation, and smaller lapse rates  improve it. This is consistent with the CTS approximation holding very well in the stratosphere, where lapse rates are typically smaller than RCE \citep[e.g.][as well as Fig. \ref{cts_h2o}]{rodgers1966}, as well as with the breakdown of the CTS approximation in real gas PRE, where lapse rates are significantly larger than RCE \citep[e.g.][P10]{manabe1964}. 
+The above analysis also allows us to understand how the validity of the CTS approximation might vary with atmospheric state and GHG concentrations. By \eqnref{gamma_rce}, we see that larger lapse rates degrade the CTS approximation, and smaller lapse rates  improve it. This is consistent with the CTS approximation holding very well in the stratosphere, where lapse rates are typically smaller than RCE \citep[e.g.][as well as Fig. \ref{cts_h2o}]{rodgers1966}. This is also consistent with the breakdown of the CTS approximation in real gas PRE, where lapse rates are significantly larger than RCE \citep[e.g. P10 or][]{manabe1964}. 
 
-Another variable factor in \eqnref{gamma_def} is $\beta$, which from \eqnref{taup} describes how quickly $\tau$ increases with $p$. The value of $\beta_{\htwo}\approx 5.5$ is relatively high, due to the strong Clausius-Clapeyron dependence of vapor pressure on temperature (JF19). On the other hand, for a non-condensable, pressure-broadened, well-mixed greenhouse gas such as \cotwo\ in Earth's atmosphere, one finds $\beta_{\cotwo} = 2$ (P10). In our RCE state, then, 
+Another variable factor in \eqnref{gamma_rce} is $\beta$, which from Eqn. \eqnref{taup} describes how quickly $\tau$ increases with $p$ and thus also measures how bottom-heavy our GHG distribution is. The value of $\beta_{\htwo}\approx 5.5$ is relatively high, due to the strong Clausius-Clapeyron dependence of vapor pressure on temperature (JF19). On the other hand, for a non-condensable, pressure-broadened, well-mixed greenhouse gas such as \cotwo\ in Earth's atmosphere, one finds $\beta_{\cotwo} = 2$ (P10). In our RCE state, then, 
 \beqn
 	 \gamma_{\cotwo}  =  0.40  \ .
 	 \n
  \eeqn
-Thus we would expect the CTS approximation to hold only marginally for \cotwo, as compared to \htwo, and RFM calculations show that this is indeed the case (Figure \ref{cooling_profiles}). These RFM calculations for \cotwo\ are identical to those for \htwo\ except that \cotwo\ is the only active species (with a concentration of 280 ppmv), the spectral range is 500--850 \cminverse, and  RFM's $\chi$ factor was used to suppress far-wing absorption of \cotwo.  
-
-Note that unlike Fig. \ref{pre_decomp}, Fig. \ref{cooling_profiles} shows spectrally-resolved heating rates $\chk$ (K/day/\cminverse), not flux divergences $\partial_{\tauk} F_k$. To relate these quantities, note that 
+Thus we would expect the CTS approximation to hold only marginally for \cotwo, as compared to \htwo. This is confirmed  in Figure \ref{cooling_profiles}, which shows spectrally-resolved heating rates 
 \beqn
-	\chk \ = \ \frac{g}{\Cp}  \ppp F_k 
+	\chk \ \equiv \ \frac{g}{\Cp}  \ppp F_k 
 	\label{chk}
-\eeqn
-and so heating rates are also flux divergences, but with respect to pressure. Note also  that $p$ is taken as the vertical coordinate in Fig. \ref{cooling_profiles} rather than \tauk, so that the area under a given curve is proportional to the column-integrated flux divergence. Note also that $\partial_{\tauk} F_k$ and $\ppp F_k$ are related by a factor of $d \tauk/dp$, so that the CTS approximation to \eqnref{chk} is
+\eeqn 
+ for selected wavenumbers for both \htwo\ and \cotwo. The RFM calculations for \cotwo\ are identical to those for \htwo\ except that \cotwo\ is the only active species (with a concentration of 280 ppmv), the spectral range is 500--850 \cminverse, and  RFM's $\chi$ factor was used to suppress far-wing absorption of \cotwo.  
+
+Beyond confirming that the CTS approximation is more suitable for \htwo\ than \cotwo,  Figure \ref{cooling_profiles} also shows that there is no significant cooling at $\tau \gg 1$ from any of the terms in \eqnref{new_decomp}, for either gas. In other words, in RCE all cooling (from the CTS term or exchange terms) \emph{must} happen around $\tau\sim O(1)$.  Why is that? From \eqnref{cts_decomp_ders2} we see that the exchange terms all scale as $1/\tau$ or $1/\tau^2$, due to the exponential form of \eqnref{Btau1}. Thus at large $\tau$ all exchange terms are suppressed, because $B(\tau)$ is a concave-down power-law whose derivatives get smaller and smaller with increasing $\tau$. This stands in contrast to the PRE case, where exchange heating and cooling is not restricted to $\tau \sim O(1)$ (Fig. \ref{pre_decomp});  this is possible because in this case $dB/d\tau$ is constant, by Eqn. \eqnref{B_pre}.
+
+Note also that \chk\ in \eqnref{chk} is a flux divergence in pressure, not optical depth, which is also why we use $p$ as the vertical coordinate in Fig. \ref{cooling_profiles} (so that the area under a given curve is proportional to the column-integrated flux divergence). Since  $\partial_{\tauk} F_k$ and $\ppp F_k$ are related by a factor of $d \tauk/dp$,  the CTS approximation to \eqnref{chk} is
 \beqn
 	\chk^{\CTS} \ = \ \frac{g}{\Cp} \pi B(k,T) \der{\tauk}{p}e^{-\tauk} \ ,
 	\label{chk_cts}
 \eeqn
-which is the equation used to produce Fig. \ref{cts_h2o}b. Note that by Eqn. \eqnref{taup}, $d\tauk/dp$ is itself exponential in $p$, leading to a vastly different profile shape for \chk\ as compared to $\partial_{tauk} F_k$. Indeed this largely why the flux divergence profiles in Fig. \ref{pre_decomp} look so different than those in Fig. \ref{cooling_profiles}. In particular, it is the exponential nature of $\tauk(p)$ which yields the  \chk maximum near `$\tau=1$ law' (Fig. \ref{cooling_profiles}, light gray dashed lines));  see JF19 as well as  \cite{huang2014} for further details.
+which is the equation used to produce Fig. \ref{cts_h2o}b. Note that by Eqn. \eqnref{taup}, $d\tauk/dp = (\beta/p)\tauk$ and  is thus itself exponential in $p$, leading to a vastly different profile shape for \chk\ as compared to $\partial_{\tauk} F_k$.  This is shown in Fig. \ref{h2o_profiles_tau}, which plots cooling profiles for the same wavenumber as in the upper right panel of Fig. \ref{cooling_profiles}, but for both $p$ and $\tauk$ coordinates. In particular, Fig. \ref{h2o_profiles_tau} shows that it is the exponential nature of $\tauk(p)$ which yields the well-known  \chk\ maximum near $\tau=1$  (Fig. \ref{cooling_profiles}, light gray dashed lines). This is because $\chk^{\CTS} \sim (\beta/p)\tauk e^{-\tauk}$ by Eqn. \eqnref{chk_cts}, and the function $xe^{-x}$ maximizes at $x=1$. See JF19 as well as  \cite{huang2014} for further discussion. 
 
-% Note also that $\gamma <1$ for both GHGs, which by \eqnref{cts_decomp_ders2} makes \SX\  negative,  hence a cooling. That is because at a given optical depth $x$ away from $\tau$, the temperature difference between $\tau-x$ and $\tau$ is greater than the temperature difference between $\tau+x$ and $\tau$, hence the exchange with the (colder) layer above dominates. THis stands in constrast to the PRE case in which these temperature differences are equal, and hence $\SX\equiv 0$. Note that this gives another, independent way in which the double cancellation argument breaks down, namely when temperatures above and below a given layer are not distributed evenly in $\tau$. 
 
+Finally, we should return to the question of where the near-surface cooling in Fig. \ref{cts_h2o}c comes from. Close inspection of Figs. \ref{cts_h2o}a,b shows that this  near-surface cooling comes from lines with $\taus \sim O(1)$, an example of which was chosen for  Fig. \ref{h2o_profiles_tau}. This figure shows that this cooling arises also because of the exponential dependence of $ d \tauk /dp$, as follows. In $\tauk$ coordinates the CTS and AX terms are comparable near the surface (note that Eqns. \eqnref{cts_decomp_tau1} don't apply here because $\taus \gg 1$ does not hold), but their overall magnitude is insignificant. When multiplied by the bottom-heavy $d \tauk/dp$ to obtain \chk, however, the cooling near the surface is dramatically amplified relative to the cooling higher up, yielding significant AX cooling near the surface. This same effect also suppresses errors in the CTS approximation in $\tau$ coordinates for $\tau \sim 0.1$ (left panel of Fig. \ref{h2o_profiles_tau}).
 
 %\subsection{Numerical divergence decomposition for RCE state} \label{sec_rce_decomp_numerical}
 % How do line-by-line profiles of \htwo\ radiative cooling in RCE compare to those of gray PRE? The top row of Figure \ref{h2o_decomp} shows each term in the new decomposition \eqnref{new_decomp} for our RCE  state, plus their sum, in $\tau$ coordinates and for a range of optical depths, all as output from RFM and our offline code. Focusing first on the $\taus=20$ case for ease of comparison with Fig. \ref{pre_decomp}, we see that near the upper boundary the CTS and AX terms oppose each other, as for PRE, but that unlike PRE there is little sign of the AX and GX terms near the lower boundary. These terms become visible for $\taus=4$, but their relative magnitudes are small.  This can be understood using \eqnref{ax_gx_scaling}: both AX and GX 
@@ -383,46 +382,32 @@ which is the equation used to produce Fig. \ref{cts_h2o}b. Note that by Eqn. \eq
 %	\label{scale_beta}
 %\eeqn
 %
+
 %Note: need to answer Robert's question somewhere, which is why CTS approximation does not just result from lack of source function contrast in exchange terms. Answer is subtle: because Planck is  non-linear in T, contrast with space can be LESS than contrast between layers (e.g. $B(\kQ,200) < B(\kQ,250)-B(\kQ,200)$). Another necessary condition for significant non-CTS cooling is for \EXbelow\ and \EXabove not to  cancel because atm not optically thick on both sides. If they do cancel, then curvature in $B(\tau)$ can cause some residual cooling but  this is indeed small, in accordance with intuition. Note that Robert's intuition can fail even if this case if $B$ is highly non-linear, yielding extreme values of $\alpha$ and hence $\gamma$.
 
- %========%
- % sec_Qcts  %
- %=========%	
- \section{Column-integrated cooling}
- Although radiative cooling or flux divergence profiles have been our focus so far, it also worth considering what the CTS approximation has to say about various column-\emph{integrated} quantities. The column-integrated radiative cooling
- $  Q \equiv \OLR   - F(\taus)$ is of particular interest, given its role in the atmospheric energy budget and the constraints it then places on latent heating and precipitation \citep[e.g.][and references therein]{jeevanjee2018}. 
- 
- We begin by vertically integrating either decomposition \eqnref{old_decomp} or \eqnref{new_decomp}, noting that in both cases the exchange terms exactly cancel  upon integration (as they must). Denoting the vertically integrated CTS term as
-$ \Qcts \ \equiv \int_0^{\taus} B(\tau')e^{-\tau'} d\tau'$, and assuming that $\Bs \geq B(\tau)$ and so $\GX>0$, we then have $Q \leq \Qcts$. Further noting that 
-\beqn
-	\OLR = \Bs e^{-\taus} + \Qcts,
-	\label{olr_cts}
-\eeqn
- we also have $\Qcts \leq \OLR$. This yields  the serial inequality
-\beqn
-        Q \ \leq\  \Qcts \ \leq  \ \OLR \ .
-        \label{Q_law}
-        \n
-\eeqn
-
-These quantities are all plotted as a function of wavenumber (with corresponding subscript $k$),  for both \htwo\ and \cotwo, in Figure \ref{Qcts}. Note that for \htwo, $Q_k\approx \Qcts_k$ throughout the spectrum, which follows from the fact that \GX\ is negligible for \htwo\ in RCE due to \htwo's low $\gamma$. 
-%That \GX\ is negligible means that for non-transparent wavenumbers, emission to ground occurs from an air temperature very similar to the air temperature at the ground (which we assume equal to the ground temperature itself in RCE). This also implies that $F$ at with significantPhysically, Another view of this is that validity of the CTS approximation \eqnref{cts_approx} in this case. Another view of this is that since $\gamma_{\htwo}$ is small, \GX\ is small by \eqnref{ax_gx_scaling}
-Also, $\Qcts_k\approx \OLR_k$ outside of the window region 800-1200 \cminverse, which follows from \eqnref{olr_cts} and the fact that $\tau_{ks} \gg 1$ outside the window. A similar story holds for \cotwo, except that the approximation $Q_k\approx \Qcts_k$ is not as good as for \htwo, as we expect. 
- 
-
+ \comment{Add arguments showing that marked high altitude cooling results from large $\der{\tauk}{p}$, which can be expressed as $\kappa(k)q/g$ OR $\beta \taus^{1/\beta}/p$ when evaluated at $\tau=1$}
+ %=========%
+% Summary  %
+%=========%  
 \section{Summary and discussion} \label{sec_summary}
 We summarize our results as follows:
 \begin{itemize}
-	\item We present a new decomposition of radiative flux divergence [Eqn. \eqnref{new_decomp}] which better captures the cancellation of exchange terms
-	\item The CTS approximation \eqnref{cts_approx} fails in PRE because $B(\tau)$ is linear in $\tau$, whereas in RCE $B\sim \tau^\gamma$ with $\gamma_{\htwo} \ll 1$, $\gamma_{\cotwo} < 1$.
-	\item The integrated CTS term $\Qcts$ satisfies $Q\leq\Qcts\leq\OLR$, where the lower bound saturates when the CTS approximation is valid and the upper bound saturates only when $\taus \gg 1$.
+	\item We present a new decomposition of radiative flux divergence [Eqn. \eqnref{new_decomp}] which better captures the cancellation of exchange terms.
+	\item We show that the CTS approximation will  hold near $\tau=1$ if $\gamma  \ll 1$, where $\gamma$ is a dimensionless number encapsulating properties of the radiative source function, atmospheric temperature profile, and greenhouse gas distribution  [Eqn. \eqnref{gamma_facs}].
+	\item  We find that  
+		\beqn
+			\gamma_{\htwo} \ = \ 0.15 , \quad  \gamma_{\cotwo}  \ = \ 0.40  , \quad \gamma_{\mathrm{PRE}}\ =\ \frac{\tau}{1+\tau},
+		\n
+		\eeqn
+consistent with the CTS approximation being accurate for \htwo\ but not for \cotwo\ or PRE.
 \end{itemize}
-In particular, Eqns. \eqnref{cts_criterion1} and \eqnref{cts_criterion2} give succinct criteria for the validity of the CTS approximation which explain why it fails for PRE but holds  for \htwo\ in RCE.
 
-One point we must return to, however, is that of the water vapor continuum. We have neglected it here 
- because it is inessential for our line-by-line analysis, and also because its effect on spectrally integrated heating rates \ch\ largely cancels that of \cotwo\ overlap, which we also neglect (JF19). The reason the continuum is inessential for the CTS approximation is that including it would only increase $\beta_{\htwo}$, since for the continuum the pressure-broadening is largely self-broadening and hence \tauk\ will have an enhanced Clausius-Clapeyron dependence. Thus the presence of the continuum can only strengthen the CTS approximation, which has indeed been shown to hold  with the continuum on \citep{clough1992}.  Nevertheless, realistic lower-tropospheric cooling rates cannot be obtained with considering the continuum, and this caveat should be kept in mind when interpreting the figures shown here.
+It must be remarked, however, that much of our analysis here is restricted and only semi-quantitative. As an example, note that $\gamma_{\cotwo} = 0.4$ and $\left.\gamma_{\PRE}\right|_{\tau=1} = 0.5$, which suggests that the accuracy of the CTS approximation around $\tau=1$ should be comparable for both cases, which it is not (Fig. \ref{pre_decomp}b and bottom row of Fig. \ref{cooling_profiles}). Plugging  $\gamma_{\PRE}$ into Eqns. \eqnref{cts_decomp_tau1} yields perfect cancellation between the CTS and AX terms, as desired, but plugging in $\gamma_{\cotwo}$ suggests that $\AX/\CTS \approx 0.8$ at $\tau=1$, whereas the actual ratio in the lower left panel of Fig. \ref{cooling_profiles} is roughly 1/3. (We consider only that panel as it satisfies the $\taus \gg 1$ assumption underlying Eqns. \eqnref{cts_decomp_tau1}). This discrepancy is likely due to the first-order Taylor expansion used to evaluate AX  [cf. Eqns. \eqnref{cts_decomp_ders1}, \eqnref{cts_decomp_ders2}, and \eqnref{ax3}], which is perfectly accurate for PRE but likely only marginally accurate in general for RCE.
 
-This work has other idealizations besides the omission of the continuum, most notably the idealized atmospheric profiles. Future work could include applying the new decomposition \eqnref{new_decomp} to more realistic atmospheres with variable lapse rates, as well as upper-atmospheric structure such as a realistic stratosphere and stratopause. Such extensions could also include other important greenhouse gases such as ozone. Cases from the Continual Intercomparison of Radiation Codes \citep[CIRC;][]{oreopoulos2010} might form a natural starting point in this regard.
+We must also discuss here our omission of the water vapor continuum. We have neglected it  
+ because it is inessential for our line-by-line analysis, and also because its effect on spectrally integrated heating rates \ch\ largely cancels that of \cotwo\ overlap, which we also neglect (JF19). The reason the continuum is inessential for the CTS approximation is that including it would only \emph{increase} $\beta_{\htwo}$, since for the continuum the pressure-broadening is largely self-broadening and hence \tauk\ will have an enhanced Clausius-Clapeyron dependence. Thus the presence of the continuum can only strengthen the CTS approximation, which has indeed been shown to hold  with the continuum on \citep{clough1992}.  Nevertheless, realistic lower-tropospheric cooling rates cannot be obtained with considering the continuum, and this caveat should be kept in mind when interpreting the figures shown here.
+
+This work has other idealizations besides the omission of the continuum, most notably the idealized atmospheric profiles. Future work could include applying the new decomposition \eqnref{new_decomp} to more realistic atmospheres with variable lapse rates, as well as more realistic upper-atmospheric structure such as a realistic tropopause, stratosphere, and stratopause. Such extensions could also include other important greenhouse gases such as ozone. Cases from the Continual Intercomparison of Radiation Codes \citep[CIRC;][]{oreopoulos2010} might form a natural starting point for this.
 
 Finally, it is also possible that the new decomposition could be applied to radiative transfer schemes which are currently based on the old decomposition \citep[e.g.][]{schwarzkopf1991,fels1975}. Future work could investigate this.
 
@@ -434,30 +419,28 @@ Finally, it is also possible that the new decomposition could be applied to radi
 	% appendix_cts  %
 	%===========%
 \section{Analysis of exchange terms in RCE} \label{appendix_cts}
-In this appendix we derive Eqns. \eqnref{cts_decomp_tau1} for the various exchange terms at $\tau\approx1$ in RCE. For the purposes of this analysis we assume $\taus \gg 1$ (this will most frequently be the case of interest).
+In this appendix we derive Eqns. \eqnref{cts_decomp_tau1} for the various exchange terms at $\tau\approx1$ in RCE. For analytic tractability we assume $\taus \gg 1$, which then implies $\tau < \taus/2$.
 
-We begin with the \SX\ term \eqnref{sx1}, and Taylor-expand the expression in brackets in \eqnref{sx1} around $x=0$ to obtain the `diffusive' approximation $x^2\frac{d^2 B}{d \tau^2}$. Note that because of the power-law form of $\tau(p)$, this diffusive approximation only holds for $x\gtrsim 1$ when $\tau\gtrsim 1$. With this caveat in mind, and only writing down SX  for $\tau < \taus/2$ for clarity, we combine the diffusive approximation with \eqnref{Btau1} to obtain
+We begin with the \SX\ term \eqnref{sx1}, and Taylor-expand the expression in brackets in \eqnref{sx1} around $x=0$ to obtain the diffusive approximation $x^2\frac{d^2 B}{d \tau^2}$. Note that because of the power-law form of $\tau(p)$, this diffusive approximation only holds for $x\gtrsim 1$ when $\tau\gtrsim 1$. With this caveat in mind,  we combine the diffusive approximation with \eqnref{Btau1} to obtain
 \beqn
  	\SX  \ \approx \    \frac{\gamma(\gamma-1) B}{ \tau^2} \int_0^\tau x^2 e^{-x} dx \ .
-	\label{sx2}
+	\label{sx3}
 \eeqn
 Note that $\SX \rightarrow 0$ as $\tau\rightarrow 0$ since $\tau$ is the thickness of the symmetric layer (Fig. \ref{decomp_cartoon}). The SX  approximation in \eqref{sx2}  maximizes close to $\tau=1$ (actually at $\tau\approx 1.45$), where the integral has a value of 1/6. 
 
- For \AX\ we similarly Taylor-expand the integrand in \eqnref{ax1} as $x\frac{d B}{d \tau}$ (again only trusting this approximation for  $\tau \gtrsim 1$ and assuming $\tau < \taus/2$)
+ For \AX\ we similarly Taylor-expand the integrand in \eqnref{ax1} as $x\frac{d B}{d \tau}$ (again only trusting this approximation for  $\tau \gtrsim 1$):
  % add expression for \tau < taus/2 ?
 \beqa
  	\AX &  \approx  &    \frac{\gamma B}{ \tau} \int_\tau^{\taus - \tau} x e^{-x} dx \n 	  \\
-		   &  \approx  & \gamma \frac{\tau+1}{\tau}B e^{-\tau} \n \\
-		   &  =  & \gamma \frac{\tau+1}{\tau}\CTS \label{ax2} \ . 
+		   &  \approx  & \gamma \frac{\tau+1}{\tau}B e^{-\tau}  \ . \label{ax3} 
 \eeqa
-Thus the shape of $\AX(\tau)$ is closely related to that of \CTS, but for $\tau \gtrsim 1$ is suppressed by a factor of $\sim \gamma$.
 
 For \GX\  we similarly approximate $B(\taus) - B(\tau)$ as $dB/d\tau (\taus-\tau)$ and thus obtain
 \beqn
 	\GX  =    \frac{\gamma B}{\tau}(\taus-\tau)e^{-(\taus-\tau)}  \ .
 	\label{gx2}
 \eeqn
-Note that \SX, \AX, and \GX\  in  Eqns. \eqnref{sx2} -- \eqnref{gx2} indeed take the form suggested by the scalings \eqnref{cts_decomp_ders2}. Evaluating Eqns. \eqnref{sx2} -- \eqnref{gx2} as well as  \eqnref{cts_def} at $\tau=1$ and noting that $xe^{-x}\leq 1/e$ then yields Eqn. \eqnref{cts_decomp_tau1} in the main text.
+Note that \SX, \AX, and \GX\  in  Eqns. \eqnref{sx3} -- \eqnref{gx2} indeed take the form suggested by the scalings \eqnref{cts_decomp_ders2}. Evaluating Eqns. \eqnref{sx3} -- \eqnref{gx2} as well as  \eqnref{cts_def} at $\tau=1$ and noting that $xe^{-x}\leq 1/e$ then yields Eqns. \eqnref{cts_decomp_tau1} in the main text.
 
 %========%
 % Figures    %
@@ -468,10 +451,10 @@ Note that \SX, \AX, and \GX\  in  Eqns. \eqnref{sx2} -- \eqnref{gx2} indeed take
 \begin{figure}[h]
 	\begin{center}
 			\includegraphics[scale=0.5]{../plots/cts_h2o}
-		\caption{ \textbf{(a)} Spectrally resolved cooling \chk, as computed from RFM output via Eqn. \eqnref{chk}
-	  				  \textbf{(b)} Spectrally resolved cooling-to-space $\chk^{\CTS}$, as computed from RFM output via Eqn. \eqnref{chk_cts}
+		\caption{ \textbf{(a)} Spectrally resolved cooling \chk\ for an \htwo\ only RCE atmosphere, as computed from RFM output via Eqn. \eqnref{chk}. 
+	  				  \textbf{(b)} As in (a) but for the spectrally resolved cooling-to-space $\chk^{\CTS}$, as computed  via Eqn. \eqnref{chk_cts}
 					  \textbf{(c)} Spectrally integrated cooling \ch\ and cooling-to-space $\ch^{\CTS}$, computed by integration of data from panels (a) and (b).
-					  All panels show averages over spectral bins of width 10 \cminverse. These panels show that the CTS approximation works quite well for water vapor, at least away from the surface.
+					  All panels show averages over spectral bins of width 10 \cminverse. These panels show that the CTS approximation works quite well for \htwo\ in RCE, at least away from the surface.
 		\label{cts_h2o}
 		}
 	\end{center}
@@ -491,7 +474,7 @@ Note that \SX, \AX, and \GX\  in  Eqns. \eqnref{sx2} -- \eqnref{gx2} indeed take
 \begin{figure}[h]
 	\begin{center}
 			\includegraphics[scale=0.75]{../plots/pre_decomp}
-		\caption{These panels show the old and new decompositions, Eqns. \eqnref{pre_old_decomp}  and  \eqnref{pre_new_decomp}, for the gray PRE solution \eqnref{B_pre} for \taus=20. The cancellation of \EXabove\ and \EXbelow\ on the left is captured implicitly by $\SX=0$ on the right.  
+		\caption{These panels show the old and new decompositions, Eqns. \eqnref{pre_old_decomp}  and  \eqnref{pre_new_decomp}, for the gray PRE solution \eqnref{B_pre} for \taus=20. The CTS approximation \eqnref{cts_approx} fails near the upper and lower boundaries. Note that the cancellation of \EXabove\ and \EXbelow\ on the left is captured implicitly by $\SX=0$ on the right.  
 		\label{pre_decomp}
 		}
 	\end{center}
@@ -501,28 +484,28 @@ Note that \SX, \AX, and \GX\  in  Eqns. \eqnref{sx2} -- \eqnref{gx2} indeed take
 \begin{figure}[h]
 	\begin{center}
 			\includegraphics[scale=0.5]{../plots/cooling_profiles.pdf}
-		\caption{Spectrally-resolved cooling rates for \htwo\ (top) and \cotwo\ (bottom), for  wavenumbers with $\tau=1$ at pressures of (300, 550, 800) hPa (left to right), decomposed according to  \eqref{new_decomp}. Gray dashed lines show $\tau=1$ level. The CTS approximation works well for \htwo\ away from the surface, but not as well for \cotwo. See text for discussion.
+		\caption{Spectrally-resolved cooling rates for \htwo\ (top) and \cotwo\ (bottom), for  wavenumbers with $\tau=1$ at pressures of (300, 550, 800) hPa (left to right), decomposed according to  \eqref{new_decomp}. Gray dashed lines show $\tau=1$ level. The CTS approximation works well for \htwo, particularly when $\taus \gg 1$,  but not as well for \cotwo. See text for discussion.
 		\label{cooling_profiles}
 		}
 	\end{center}
 \end{figure}
 
-%Figure Qcts
+%Figure h2o_profiles_tau
 \begin{figure}[h]
 	\begin{center}
-			\includegraphics[scale=0.7]{../plots/Qcts}
-		\caption{The inequality \eqnref{Q_law} as a function of wavenumber for \htwo\ and \cotwo. These panels confirm that the integrated CTS approximation works quite well for water vapor at all wavelengths, and less so for \cotwo.
-		\label{Qcts}
+			\includegraphics[scale=0.5]{../plots/h2o_profiles_tau}
+		\caption{Spectrally-resolved cooling rates for \htwo\ for the same $\taus \sim O(1)$ wavenumber shown in the upper right panel of Fig. \ref{cooling_profiles}, except shown as flux divergences with respect to \textbf{(left)}  optical depth \tauk\  and \textbf{(right)} pressure $p$. This change in coordinates has a dramatic effect on the shape of the cooling profile. In particular, the comparable but small CTS and AX coolings near $\tau \approx 3$ on the left are magnified on the right, yielding a breakdown of the CTS approximation near the surface for \chk, as also seen in the spectrally integrated cooling in Fig. \ref{cts_h2o}c.
+		\label{h2o_profiles_tau}
 		}
 	\end{center}
 \end{figure}
 
-%%Figure h2o_decomp
+%%Figure Qcts
 %\begin{figure}[h]
 %	\begin{center}
-%			\includegraphics[scale=0.45]{../plots/h2o_decomp.pdf}
-%		\caption{Spectrally-resolved \htwo, along with the decomposition \eqref{new_decomp}, in $\tau$ and $p$ coordinataes.
-%		\label{h2o_decomp}
+%			\includegraphics[scale=0.7]{../plots/Qcts}
+%		\caption{The inequality \eqnref{Q_law} as a function of wavenumber for \htwo\ and \cotwo. These panels confirm that the integrated CTS approximation works quite well for water vapor at all wavelengths, and less so for \cotwo.
+%		\label{Qcts}
 %		}
 %	\end{center}
 %\end{figure}
@@ -544,38 +527,6 @@ Note that \SX, \AX, and \GX\  in  Eqns. \eqnref{sx2} -- \eqnref{gx2} indeed take
 %	\end{center}
 %\end{figure}
 %
-%%Figure cooling_decomp_co2
-%\begin{figure}[h]
-%	\begin{center}
-%			\includegraphics[scale=0.4]{../plots/cooling_decomp_co2_only_simple_atm}
-%		\caption{Various output from RFM, as follows:
-%					 \textbf{(a)} 
-%					 \textbf{(b)} 
-%					 \textbf{(c)} 
-%					 \textbf{(d)}:
-%					 \textbf{(e)}:
-%					 All spectral plots show averages over 10 \cminverse\ bins. These panels show that the CTS approximation works OK for \cotwo\, at least away from the surface.
-%		\label{cooling_decomp_co2}
-%		}
-%	\end{center}
-%\end{figure}
-%
-
-
-%%Figure beta
-%\begin{figure}[h!]
-%	\begin{center}
-%			\includegraphics[scale=0.6]{../plots/beta.pdf}
-%		\caption{Calculation of $\der{\ln \tauk}{\ln p}$ for various cases, along with $\tauk=1$ levels (averaged in 10 \cminverse\ bins), and the mean and standard deviation of $\der{\ln \tauk}{\ln p}$ restricted to these levels, denoted as $\beta$. The atmospheric profiles fed into RFM were as follows:
-%					\textbf{(a)}  A modified simple \cotwo\ only atmosphere  with a uniform temperature of 200 K, to eliminate temperature scaling.
-%					\textbf{(b)}  As in (a) but using our standard simple atmosphere
-%					\textbf{(c)}  Our  standard simple \htwo\ only atmosphere, except that we impose a uniform 200 K temperature while keeping $q$ unchanged. This yields unphysical \RH\ values, but allows us to eliminate the effect of temperature scaling while preserving the exponential increase of $q$ with depth  
-%					\textbf{(d)}   As in (c) but using our standard simple atmosphere.
-%					These panels yield the estimates of $\beta$ found in Table \ref{band_params} and used in our analytical model, and show that our estimates of $\beta$ from \eqnref{tauk_theory} are reasonable in the absence of temperature scaling, but are underestimates in the presence of temperature scaling.
-%		\label{beta}
-%		}
-%	\end{center}
-%\end{figure}
 
 \pagebreak
 
