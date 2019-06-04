@@ -169,8 +169,8 @@
 
 
 %Variables
-%\newcommand{\figurepath}{../plots/}
-\newcommand{\figurepath}{./}
+\newcommand{\figurepath}{../plots/}
+%\newcommand{\figurepath}{./}
 
 %%% To be entered by author:
 
@@ -385,14 +385,14 @@ Having considered the simpler PRE case, we now consider a gray atmosphere in rad
 	T \ = \ \Ts(p/\ps)^{\Rd\Gamma/g} 
 	\label{Tp}
 \eeqn
-where \Ts\ and \ps\ are surface temperature and pressure, respectively, and all other symbols have their usual meaning. Note that $T$ is now continuous at the surface. To determine the resulting form of  $B(\tau)$, we combine \eqnref{Tp} with the commonly used power-law form for $\tau(p)$ \citep[e.g.][]{cronin2015b,robinson2012,frierson2006}:
+where \Ts\ and \ps\ are surface temperature and pressure, respectively, and all other symbols have their usual meaning. Note that $T$ is now continuous at the surface, so $B(\taus)=B_s$. To determine the form of  $B(\tau)$ in RCE, we combine \eqnref{Tp} with the commonly used power-law form for $\tau(p)$ \citep[e.g.][]{cronin2015b,robinson2012,frierson2006}:
  \beqn
  	\tau = \taus(p/\ps)^\beta  \ .
 	\label{taup}
 \eeqn 
 We also assume that  
 \beqn
-	B(T)\ = \ \Bs(T/\Ts)^\alpha
+	B(T)\ = \ \Bs\, (T/\Ts)^\alpha
 	\label{BT}
 \eeqn
 ($\alpha=4$ for a gray gas, but we keep \eqnref{BT} general for later use). Combining \eqnref{Tp}--\eqnref{BT}, we find
@@ -415,7 +415,7 @@ The parameter $\gamma$ is critical for what follows, as it determines how rapidl
 	\gamma_{\mathrm{PRE}} \  \equiv \ \frac{\tau}{1+\tau} \ ,
 	\n
 \eeqn
- and $d \ln T/ d\ln P$ then takes on whatever values are required to produce this. In RCE, however, it is $d \ln T/ d\ln P$ which is fixed [e.g. Eqn. \eqnref{Tp}], and this then determines the $\gamma$ profile as per \eqnref{gamma_rce}.
+ and $d \ln T/ d\ln P$ then takes on whatever values are required to produce this. In contrast, in RCE it is $d \ln T/ d\ln P$ which is fixed [e.g. Eqn. \eqnref{Tp}], and this then determines the $\gamma$ profile as per \eqnref{gamma_rce}.
 
 Proceeding on, we substitute \eqnref{Btau1} into the rough scalings \eqnref{cts_decomp_ders1} to obtain 
 \begin{subequations}
@@ -458,7 +458,7 @@ However, these profiles are flux divergences computed in $\tau$ coordinates, whi
 	\ch \ \equiv \ \frac{g}{\Cp}  \ppp F \ ,
 	\label{ch_def}
 \eeqn 
-i.e. heating rates are flux divergences in pressure (or mass) coordinates. We can obtain a decomposition of the heating rate \eqnref{ch_def} by multiplying each term in \eqnref{new_decomp} by $\frac{g}{\Cp}\der{\tau}{p}$, yielding the profiles shown in Fig. \ref{gray_rce}d-f. In pressure coordinates, the \CTS\ terms $\ch^{\CTS}$ now indeed maximize very near $\tau=1$. The basic reason for this is that by \eqnref{taup}, $\der{\tau}{p} = \beta \tau/p$ and thus $\ch^{\CTS}$ can be written
+i.e. heating rates are flux divergences in pressure (or mass) coordinates. We can obtain a decomposition of the heating rate \eqnref{ch_def} by multiplying each term in \eqnref{new_decomp} by $\frac{g}{\Cp}\der{\tau}{p}$, yielding the profiles shown in Fig. \ref{gray_rce}d-f. In pressure coordinates, the \CTS\ term $\ch^{\CTS}$ now indeed maximizes very near $\tau=1$. The basic reason for this is that by \eqnref{taup}, $\der{\tau}{p} = \beta \tau/p$ and thus $\ch^{\CTS}$ can be written
 \beqn
 	\ch^{\CTS} \ = \ -\frac{g}{\Cp}B\, \frac{\beta}{p}\tau\, e^{-\tau} \ .
 	\label{ch_cts}
@@ -474,14 +474,14 @@ In addition to the emergence of a $\tau=1$ maximum, another consequence of the p
 The results so far have only been for idealized gray gases obeying the simple relationships \eqnref{taup} and \eqnref{BT}. In this section we perform line-by-line radiative transfer calculations for \htwo\ and \cotwo\ to test the validity of our results for realistic greenhouse gases. In this section we will use pressure coordinates and apply our decomposition \eqnref{new_decomp} to spectrally-resolved heating rates \chk, which depend on wavenumber $k$ (\cminverse) and will be plotted in  units of $\Kelvin/\mathrm{day}/\cminverse$.
 
 \subsection{RFM configuration}
-We perform line-by-line calculations using the Reference Forward Model  \citep[RFM,][]{dudhia2017}. These calculations are very similar to those from \cite{jeevanjee2019a}, except the spectral and horizontal resolution is coarser. We run RFM for \htwo\ and \cotwo\ separately, using  HITRAN 2016 spectroscopic data for \htwo\ from 0--1500 \cminverse\ and \cotwo\ from 500--850 \cminverse, using only the most common isotopologue for each gas. We use a highly idealized RCE atmospheric profile with $\Ts= 300$ K and a constant lapse rate of $\Gamma= 7\ \Kelvin/\km$ up to to an isothermal stratosphere at $200$ K. (Note that the gray RCE temperature profile \eqnref{Tp} goes to 0 as $p\rightarrow 0$, unlike the isothermal stratosphere profile we employ in this section.) The GHG distributions are given by a relative humidity of 0.75 and a  \cotwo\ concentration of 280 ppmv, both of which hold everywhere (including the stratosphere).   We run RFM at a spectral resolution of 1 \cminverse\ and a vertical resolution of 500 m below 15 km, 1 km between 15 and 30 km, and 2.5 km up to model top at 50 km. RFM's $\chi$ factor, following \cite{cousin1985}, is used to suppress far-wing absorption of \cotwo. We output optical depth and fluxes as a function of wavenumber and pressure. Profiles of the exchange terms AX and SX  were produced by feeding the optical depth profiles from RFM into an offline code which numerically evaluates  Eqns. \eqnref{sx_ax_decomp} (a sanity check on this calculation is given in Fig. \ref{both_taus20_profiles}). The CTS and GX terms are straightforwardly evaluated from \eqnref{cts_def} and \eqnref{gx_def}. 
+We perform line-by-line calculations using the Reference Forward Model  \citep[RFM,][]{dudhia2017}. These calculations are very similar to those from \cite{jeevanjee2019a}, except the spectral and horizontal resolution is coarser. We run RFM for \htwo\ and \cotwo\ separately, using  HITRAN 2016 spectroscopic data for \htwo\ from 0--1500 \cminverse\ and \cotwo\ from 500--850 \cminverse, using only the most common isotopologue for each gas. We use a highly idealized RCE atmospheric profile with $\Ts= 300$ K and a constant lapse rate of $\Gamma= 7\ \Kelvin/\km$ up to to an isothermal stratosphere at $200$ K. (Note that the gray RCE temperature profile \eqnref{Tp} goes to 0 as $p\rightarrow 0$, unlike the isothermal stratosphere profile we employ in this section.) The GHG distributions are given by a relative humidity of 0.75 and a  \cotwo\ concentration of 280 ppmv, both of which hold everywhere (including the stratosphere).   We run RFM at a spectral resolution of 1 \cminverse\ and a vertical resolution of 500 m below 15 km, 1 km between 15 and 30 km, and 2.5 km up to model top at 50 km. RFM's $\chi$ factor, following \cite{cousin1985}, is used to suppress far-wing absorption of \cotwo. We output optical depth and fluxes as a function of wavenumber and pressure. Profiles of the exchange terms AX and SX  were produced by feeding the optical depth profiles from RFM into an offline code which numerically evaluates  Eqns. \eqnref{sx_ax_decomp} (sanity checks on this calculation are given in Fig. \ref{both_taus20_profiles}). The CTS and GX terms are straightforwardly evaluated from \eqnref{cts_def} and \eqnref{gx_def}. 
 
  For simplicity in comparing to our offline decomposition, optical depth is calculated along a vertical path (zenith angle of zero), and fluxes   were computed using a two-stream approximation (rather than RFM's default 4-stream) with a diffusivity factor of $D=1.5$.\footnote{We also disable RFM's BFX flag, and thus assume constant $B(k,T)$ within vertical grid cells, rather than the linearly varying interpolation which the BFX flag produces.} We also omit the water vapor continuum and do not consider overlap between \htwo\ and \cotwo. These omissions are discussed further in Section \ref{sec_summary} as well as in the companion paper  \cite{jeevanjee2019a}. Note that the CTS approximation in the presence of continuum effects was examined in \cite{clough1992}.
  
 
  % Section real_rce 
 \subsection{RFM results} \label{sec_real_rce}
-Before examining the RFM results, let us evaluate the criterion \eqnref{cts_criterion2} for \htwo\ and \cotwo\ in our idealized RCE profiles. To evaluate $\gamma$ we need to estimate $\alpha$ and $\beta$ from Eqns. \eqnref{BT} and \eqnref{taup}. For $\alpha$, note that $\alpha = \partialder{ \ln B(k,T)}{\ln T}$ varies with both $k$ and $T$ (Fig. \ref{alpha}), but is about 3 near $(k,T)=(550\  \cminverse,\ 260\ \Kelvin)$, a typical value for the \htwo\ rotation band \citep[][]{jeevanjee2019a}. For $(k,T)=(650\  \cminverse,\ 260\  \Kelvin)$ near \cotwo\ band center, $\alpha$ is closer to 4.   We thus set $\alpha_{\htwo}=3 $ and $\alpha_{\cotwo}=4$.  As for $\beta$, a non-condensable, pressure-broadened, well-mixed greenhouse gas such as \cotwo\ in Earth's atmosphere is well-known to have $\beta_{\cotwo} = 2$ \citep{pierrehumbert2010}. For \htwo, \cite{jeevanjee2019a} estimated $\beta$ and found a typical value\footnote{This is larger than the $\beta=4$ value for \htwo\ sometimes found in the literature \citep[e.g.][]{frierson2006}, likely because those studies neglected pressure broadening in estimating $\beta$.} of $\beta_{\htwo} = 5.5$. Plugging all of this as well as $\Gamma=7$ K/km into \eqnref{gamma_rce} yields
+Before examining the RFM results, let us evaluate the criterion \eqnref{cts_criterion2} for \htwo\ and \cotwo\ in our idealized RCE profiles. To evaluate $\gamma$ we need to estimate $\alpha$ and $\beta$ from Eqns. \eqnref{BT} and \eqnref{taup}. For $\alpha$, note that $\alpha = \partialder{ \ln B(k,T)}{\ln T}$ varies with both $k$ and $T$ (Fig. \ref{alpha}), but is about 3 near $(k,T)=(550\  \cminverse,\ 260\ \Kelvin)$, a typical value for the \htwo\ rotation band \citep[][]{jeevanjee2019a}. For $(k,T)=(650\  \cminverse,\ 260\  \Kelvin)$ near \cotwo\ band center, $\alpha$ is closer to 4.   We thus set $\alpha_{\htwo}=3 $ and $\alpha_{\cotwo}=4$.  As for $\beta$, a non-condensable, pressure-broadened, well-mixed greenhouse gas such as \cotwo\ in Earth's atmosphere is well-known to have $\beta_{\cotwo} = 2$ \citep{pierrehumbert2010}. For \htwo, \cite{jeevanjee2019a} estimated $\beta$ and found that it varies somewhat in the vertical but has a typical value\footnote{This is larger than the $\beta=4$ value for \htwo\ sometimes found in the literature \citep[e.g.][]{frierson2006}, likely because those studies neglected pressure broadening in estimating $\beta$.} of $\beta_{\htwo} = 5.5$. Plugging all of this as well as $\Gamma=7$ K/km into \eqnref{gamma_rce} yields
 	\beqn
 		\begin{split}
 			\gamma_{\htwo}     & =  \  0.1        \\
@@ -491,7 +491,7 @@ Before examining the RFM results, let us evaluate the criterion \eqnref{cts_crit
 	\eeqn
 According to \eqnref{cts_criterion2} and Fig. \ref{gray_rce}, this suggests that the CTS approximation will hold quite well for \htwo, and less so for \cotwo. Indeed,  decomposed cooling profiles from our RFM calculations for wavenumbers with $\taus\approx20$  confirm this (Fig. \ref{both_taus20_profiles}), and furthermore resemble the profiles from our gray RCE calculation (Fig. \ref{gray_rce}e,f).
 
-Of course, Fig. \ref{both_taus20_profiles} only shows the decomposition \eqnref{new_decomp} for one wavenumber for each gas. To test the robustness of our conclusions, Figs. \ref{realgas_decomp_h2o} and \ref{realgas_decomp_co2} show each of the terms in \eqnref{new_decomp} across the spectrum, as well as their spectral integrals, for \htwo\ and \cotwo\ respectively. These plots confirm that for \htwo\ the exchange terms are small and the CTS approximation is quite accurate, except near the surface as pointed out at the end of Section \ref{sec_gray_rce}. For \cotwo, on the other hand, the exchange terms (and the AX term in particular) yield more substantial errors, at the surface and elsewhere. The \SX\ term also provides the well-known tropopause heating from \cotwo\ \citep[e.g.][]{thuburn2002,zhu1992}.
+Of course, Fig. \ref{both_taus20_profiles} only shows the decomposition \eqnref{new_decomp} for one wavenumber for each gas. To test the robustness of our conclusions, Figs. \ref{realgas_decomp_h2o} and \ref{realgas_decomp_co2} show each of the terms in \eqnref{new_decomp} across the spectrum, as well as their spectral integrals, for \htwo\ and \cotwo\ respectively. These plots confirm that for \htwo\ the exchange terms are small and the CTS approximation is quite accurate, except near the surface as pointed out at the end of Section \ref{sec_gray_rce}. For \cotwo, on the other hand, the exchange terms (and the AX term in particular) yield more substantial errors, at the surface and elsewhere. The \SX\ term also provides the well-known tropopause heating from \cotwo\ \citep[e.g.][]{thuburn2002,zhu1992}. Physically, the CTS approximation holds well for \htwo\ because Clausius-Clapeyron scaling of \htwo\ concentrations yields a fairly rapid increase of $\tau$ with $p$ (i.e. large $\beta$), and hence a small source function gradient $dB/d\tau$, suppressing the exchange terms. \comment{re-write/edit?}
 
 
 
@@ -541,7 +541,7 @@ Let us begin with our simplified temperature profile. Generalizing our results t
 
 At the same time, more realistic temperature profiles can also have strong vertical \emph{gradients} in $\Gamma$, arising e.g. at boundary layer or trade inversions, or at the tropopause or stratopause. This will likely lead to strong \SX\ heating/cooling (because this term measures curvature in the temperature profile), and hence to a localized breakdown in  the CTS approximation. Such a strong SX contribution can be seen  at the tropopause for \cotwo\ in Fig. \ref{realgas_decomp_co2}, and also occurs at the stratopause \citep[e.g.][]{clough1995,zhu1992}. 
 
-Besides simplified temperature profiles, we also assumed constant \RH.  Relaxing this would make $\beta = d \ln \tau /d \ln p$ non-uniform in the vertical, but shouldn't affect $\gamma$ or the CTS approximation in any other way. Other impacts of variable \RH, unrelated to the CTS approximation, are discussed in \cite{jeevanjee2019a}.   Convenient cases for studying these effects from more realistic temperature and humidity profiles might be the those used in the Continual Intercomparison of Radiation Codes \citep[CIRC;][]{oreopoulos2010}. 
+Besides simplified temperature profiles, we also assumed constant \RH.  Relaxing this would add additional vertical variation to  $\beta = d \ln \tau /d \ln p$ for \htwo, but shouldn't affect $\gamma$ or the CTS approximation in any other way. Other impacts of variable \RH, unrelated to the CTS approximation, are discussed in \cite{jeevanjee2019a}.   Convenient cases for studying these effects from more realistic temperature and humidity profiles might be the those used in the Continual Intercomparison of Radiation Codes \citep[CIRC;][]{oreopoulos2010}. 
 
 As for continuum absorption from \htwo, this should increase $\beta$ since $\tau(p)$ for such wavenumbers will depend quadratically on vapor density \citep[because continuum pressure-broadening is largely self-broadening, e.g.][]{pierrehumbert2010}, and such $\tau(p)$  will thus have an enhanced Clausius-Clapeyron dependence and thus be even more bottom-heavy. This larger $\beta$ would lead to a larger $\gamma$, although it is unclear whether the \CTS\ term would totally dominate at such wavenumbers. This is because such wavenumbers also tend to have $\taus \sim O(1)$ (at least in the present-day tropics), and thus the CTS term will overlap with the \AX\ surface cooling already discussed. Also note that absolute values of lower-tropospheric \htwo\ cooling rates are strongly influenced by the continuum \citep{jeevanjee2019a}, a caveat which should be kept in mind when interpreting Fig. \ref{realgas_decomp_h2o}. 
 

@@ -9,7 +9,7 @@ source(paste(Rtoolsdir,"plot_tools.R",sep=""))
 source(paste(Rtoolsdir,"my_image_plot.R",sep=""))
 source(paste(Rtoolsdir,"gray_model.R",sep=""))
 
-gas    = "h2o"
+gas    = "co2"
 case_h2o   = "h2o_only_no_cont"
 #case_h2o   = "h2o_noctm_Ts300_rh0.75_gamma7"
 case_co2   = "co2_only_simple_atm"
@@ -25,6 +25,7 @@ p1lwd_h2o  = 1.15
 p1lwd_co2  = 1.5
 p1col_h2o  = "lightgray"
 p1col_co2  = "gray"
+
 
 for (var in c("case","Hklim","Hlim","xunits","xaxis","p1lwd","p1col")){
 	assign(var,eval(as.name(paste(var,gas,sep="_"))))
@@ -121,6 +122,7 @@ cex	       = 2.5
 cex_lab   = 1.75
 plim	   = c(1000,75)
 Hk_units   = expression(K/d*a*y/cm^{-1})
+col_panel  = "black"
 
 # PDF
 file = paste("~/Dropbox/18cts/plots/realgas_decomp_",gas,".pdf",sep="")
@@ -177,7 +179,7 @@ for (k_field in 1:5){
 	}
 
 	#Add panel label
-    mtext(letters[k_field],1,line=-1.5,adj=0.02,cex=1.5,col="darkgray")
+    mtext(letters[k_field],1,line=-1.5,adj=0.02,cex=1.5,col=col_panel)
 
 	# Add p1
 	points(1e-2*k_coarse,1e-2*p1_coarse,type="l",lty="dashed",lwd=p1lwd,col=p1col)	
@@ -204,6 +206,6 @@ for (n in 1:length(fields)){
     points(fac1d*var,1e-2*p_s,type="l",lwd=lwd,lty=lty,col=col)
 }
 legend("topleft",legend=fieldnames,lty=ltyvec,lwd=lwd,col=colvec,cex=cex-0.25)
-mtext(letters[6],1,line=-1.5,adj=0.02,cex=1.5,col="darkgray")
+mtext(letters[6],1,line=-1.5,adj=0.02,cex=1.5,col=col_panel)
 
 dev.off()
