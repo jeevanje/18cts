@@ -1,0 +1,160 @@
+\begin{thebibliography}{28}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\renewcommand{\UrlFont}{\rmfamily}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem[{Amundsen et~al.(2014)Amundsen, Baraffe, Tremblin, Manners, Hayek,
+  Mayne,, and Acreman}]{amundsen2014}
+Amundsen, D.~S., I.~Baraffe, P.~Tremblin, J.~Manners, W.~Hayek, N.~J. Mayne,
+  and D.~M. Acreman, 2014: {Astrophysics Accuracy tests of radiation schemes
+  used in hot Jupiter global circulation models}. \textit{Astronomy {\&}
+  Astrophysics}, \textbf{564}, 59.
+
+\bibitem[{Andrews et~al.(1987)Andrews, Leovy, Holton, Marshall,, and
+  Plumb}]{andrews1987}
+Andrews, D.~G., C.~B. Leovy, J.~R. Holton, J.~Marshall, and R.~A. Plumb, 1987:
+  \textit{{Middle Atmosphere Dynamics.}} Elsevier Science {\&} Technology, 502
+  pp.
+
+\bibitem[{Clough and Iacono(1995)Clough, and Iacono}]{clough1995}
+Clough, S.~A., and M.~J. Iacono, 1995: {Line-by-line calculation of atmospheric
+  fluxes and cooling rates 2. Application to carbon dioxide, ozone, methane,
+  nitrous oxide and the halocarbons}. \textit{Journal of Geophysical Research},
+  \textbf{100535~(20)}, 519--16.
+
+\bibitem[{Clough et~al.(1992)Clough, Iacono,, and Moncet}]{clough1992}
+Clough, S.~A., M.~J. Iacono, and J.-l. Moncet, 1992: {Line-by-line calculations
+  of atmospheric fluxes and cooling rates: Application to water vapor}.
+  \textit{Journal of Geophysical Research}, \textbf{97~(D14)}, 15\,761.
+
+\bibitem[{Cousin et~al.(1985)Cousin, Doucen, Boulet,, and Henry}]{cousin1985}
+Cousin, C., R.~L. Doucen, C.~Boulet, and a.~Henry, 1985: {Temperature
+  dependence of the absorption in the region beyond the 4.3-microm band head of
+  CO(2) . 2: N(2) and O(2) broadening.} \textit{Applied optics},
+  \textbf{24~(22)}, 3899--3907.
+
+\bibitem[{Cronin and Jansen(2016)Cronin, and Jansen}]{cronin2015b}
+Cronin, T.~W., and M.~F. Jansen, 2016: {Analytic radiative-advective
+  equilibrium as a model for high-latitude climate}. \textit{Geophysical
+  Research Letters}, \textbf{43~(1)}, 449--457.
+
+\bibitem[{Dudhia(2017)}]{dudhia2017}
+Dudhia, A., 2017: {The Reference Forward Model (RFM)}. \textit{Journal of
+  Quantitative Spectroscopy and Radiative Transfer}, \textbf{186}, 243--253.
+
+\bibitem[{Fels and Schwarzkopf(1975)Fels, and Schwarzkopf}]{fels1975}
+Fels, S.~B., and M.~D. Schwarzkopf, 1975: {The Simplified Exchange
+  Approximation: A New Method for Radiative Transfer Calculations}.
+  \textit{Journal of the Atmospheric Sciences}, \textbf{32~(7)}, 1475--1488.
+
+\bibitem[{Frierson et~al.(2006)Frierson, Held,, and
+  Zurita-Gotor}]{frierson2006}
+Frierson, D. M.~W., I.~M. Held, and P.~Zurita-Gotor, 2006: {A Gray-Radiation
+  Aquaplanet Moist GCM. Part I: Static Stability and Eddy Scale}.
+  \textit{Journal of the Atmospheric Sciences}, \textbf{63~(10)}, 2548--2566.
+
+\bibitem[{Goody and Yung(1989)Goody, and Yung}]{goody1989}
+Goody, R.~M., and Y.~L. Yung, 1989: {Atmospheric radiation : theoretical
+  basis}. \textit{Atmospheric radiation : theoretical basis, 2nd ed., by
+  Richard M. Goody and Y.L. Yung. New York, NY: Oxford University Press, 1989},
+  \textbf{-1}.
+
+\bibitem[{Green(1967)}]{green1967}
+Green, J.~S., 1967: {Division of radiative streams into internal transfer and
+  cooling to space}. \textit{Quarterly Journal of the Royal Meteorological
+  Society}, \textbf{93~(397)}, 371--372.
+
+\bibitem[{Held(1982)}]{held1982}
+Held, I.~M., 1982: {On the Height of the Tropopause and the Static Stability of
+  the Troposphere}. \textit{Journal of the Atmospheric Sciences},
+  \textbf{39~(2)}, 412--417.
+
+\bibitem[{Huang and Shahabadi(2014)Huang, and Shahabadi}]{huang2014}
+Huang, Y., and M.~B. Shahabadi, 2014: {Why logarithmic? A note on the
+  dependence of radiative forcing on gas concentration}. \textit{Journal of
+  Geophysical Research}, \textbf{119~(22)}, 13\,683--13\,689.
+
+\bibitem[{Jeevanjee and Fueglistaler(2019)Jeevanjee, and
+  Fueglistaler}]{jeevanjee2019a}
+Jeevanjee, N., and S.~Fueglistaler, 2019: {An analytical real gas model for
+  tropospheric radiative cooling}. \textit{Submitted to Journal of Atmospheric
+  Sciences}.
+
+\bibitem[{Jeevanjee and Romps(2018)Jeevanjee, and Romps}]{jeevanjee2018}
+Jeevanjee, N., and D.~M. Romps, 2018: {Mean precipitation change from a
+  deepening troposphere}. \textit{Proceedings of the National Academy of
+  Sciences}, 201720683.
+
+\bibitem[{Joseph et~al.(1976)Joseph, Bursztyn, Joseph,, and
+  Bursztyn}]{joseph1976}
+Joseph, J.~M., R.~Bursztyn, J.~M. Joseph, and R.~Bursztyn, 1976: {A Radiative
+  Cooling Model in the Thermal Infrared for Application to Models of the
+  General Circulation}. \textit{Journal of Applied Meteorology},
+  \textbf{15~(4)}, 319--325.
+
+\bibitem[{Oreopoulos and Mlawer(2010)Oreopoulos, and Mlawer}]{oreopoulos2010}
+Oreopoulos, L., and E.~Mlawer, 2010: {The continual intercomparison of
+  radiation codes (CIRC)}. \textit{Bulletin of the American Meteorological
+  Society}, \textbf{91~(3)}, 305--310.
+
+\bibitem[{Petty(2006)}]{petty2006}
+Petty, G.~W., 2006: \textit{{A First Course in Atmospheric Radiation (2nd
+  Ed.)}}. Sundog Pub, 472 pp.
+
+\bibitem[{Pierrehumbert(2010)}]{pierrehumbert2010}
+Pierrehumbert, R.~T., 2010: \textit{{Principles of Planetary Climate}}.
+  Cambridge University Press, Cambridge, UK.
+
+\bibitem[{Robinson and Catling(2012)Robinson, and Catling}]{robinson2012}
+Robinson, T.~D., and D.~C. Catling, 2012: {AN ANALYTIC RADIATIVE-CONVECTIVE
+  MODEL FOR PLANETARY ATMOSPHERES}. \textit{The Astrophysical Journal},
+  \textbf{757~(1)}, 104.
+
+\bibitem[{Rodgers and Walshaw(1966)Rodgers, and Walshaw}]{rodgers1966}
+Rodgers, C.~D., and C.~D. Walshaw, 1966: {The computation of infra-red cooling
+  rate in planetary atmospheres}. \textit{Quarterly Journal of the Royal
+  Meteorological Society}, \textbf{92}, 67--92.
+
+\bibitem[{Schwarzkopf and Fels(1991)Schwarzkopf, and Fels}]{schwarzkopf1991}
+Schwarzkopf, M.~D., and S.~B. Fels, 1991: {The Simplified Exchange Method
+  Revisited: An Accurate, Rapid Method for Computation of Infrared Cooling
+  Rates and Fluxes}. \textit{Journal of Geophysical Research},
+  \textbf{96~(89)}, 9075--9096.
+
+\bibitem[{Thomas and Stamnes(2002)Thomas, and Stamnes}]{thomas2002}
+Thomas, G.~E., and K.~Stamnes, 2002: \textit{{Radiative Transfer in the
+  Atmosphere and Ocean}}. Cambridge University Press, Cambridge, UK, 517 pp.
+
+\bibitem[{Thuburn and Craig(2002)Thuburn, and Craig}]{thuburn2002}
+Thuburn, J., and G.~C. Craig, 2002: {On the temperature structure of the
+  tropical substratosphere}. \textit{Journal of Geophysical Research:
+  {\ldots}}, \textbf{107}, 1--10.
+
+\bibitem[{Wallace and Hobbs(2006)Wallace, and Hobbs}]{wallace2006}
+Wallace, J.~M., and P.~V. Hobbs, 2006: \textit{{Atmospheric Science: An
+  Introductory Survey}}. Academic Press, 504 pp.
+
+\bibitem[{Weaver and Ramanathan(1995)Weaver, and Ramanathan}]{weaver1995}
+Weaver, C., and V.~Ramanathan, 1995: {Deductions from a simple climate model:
+  factors governing surface temperature and atmospheric thermal structure}.
+  \textit{Journal of Geophysical Research}, \textbf{100~(D6)}, 11,585--11,591.
+
+\bibitem[{Zagoni(2016)}]{zagoni2016}
+Zagoni, M., 2016: {Fifty years of the cooling-to-space approximation and its
+  uses today. Available at
+  https://www.researchgate.net/publication/297733336{\_}Fifty{\_}years{\_}of{\_}the{\_}cooling-to-space{\_}approximation{\_}and{\_}its{\_}uses{\_}today}.
+
+\bibitem[{Zhu et~al.(1992)Zhu, Summers,, and Strobel}]{zhu1992}
+Zhu, X., M.~E. Summers, and D.~F. Strobel, 1992: {Calculation of CO
+  {\textless}sub{\textgreater}2{\textless}/sub{\textgreater} 15-$\mu$m band
+  atmospheric cooling rates by Curtis matrix interpolation of correlated-
+  {\textless}i{\textgreater}k{\textless}/i{\textgreater} coefficients}.
+  \textit{Journal of Geophysical Research}, \textbf{97~(D12)}, 12\,787.
+
+\end{thebibliography}

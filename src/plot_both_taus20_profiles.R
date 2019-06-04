@@ -8,7 +8,8 @@ source(paste(Rtoolsdir,"gray_model.R",sep=""))
 source("plot_params.R")
 
 # data params
-cases = c("h2o_only_no_cont","co2_only_simple_atm")
+#cases = c("co2_noctm_Ts300_rh0.75_gamma7","h2o_noctm_Ts300_rh0.75_gamma7")
+cases = c("co2_only_simple_atm","h2o_only_no_cont")
 D     = 1.5  # diffusion parameter
 
 # plot params
@@ -27,14 +28,14 @@ cex_leg = 1.5
 plab    = "p (hPa)"
 p_lim   = c(1000,0.1)
 Hklab   = expression(H[k]~~"("*K/day/cm^{-1}*")")
-gasnames = c(expression(H[2]*O),expression(C*O[2]))
+gasnames = c(expression(C*O[2]),expression(H[2]*O))
 
 # PDF
 file = "../plots/both_taus20_profiles.pdf"
 pdf(file=file,width=10,height=6,bg="white")
 par(mfrow=c(1,2),mar=c(5,5,5,4))
 
-for (i in 2:1){
+for (i in 1:2){
 	case = cases[i]
 
 	#=======#

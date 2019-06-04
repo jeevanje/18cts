@@ -9,8 +9,9 @@ source(paste(Rtoolsdir,"plot_tools.R",sep=""))
 source(paste(Rtoolsdir,"my_image_plot.R",sep=""))
 source(paste(Rtoolsdir,"gray_model.R",sep=""))
 
-gas    = "co2"
+gas    = "h2o"
 case_h2o   = "h2o_only_no_cont"
+#case_h2o   = "h2o_noctm_Ts300_rh0.75_gamma7"
 case_co2   = "co2_only_simple_atm"
 Hklim_h2o = c(-0.9e-2,0.5e-2) # K/day/cm^-1
 Hklim_co2 = 0.5*Hklim_h2o
@@ -20,8 +21,12 @@ xunits_h2o = 1720
 xunits_co2 = 900
 xaxis_h2o  = c(200,400,600,800,1000,1400)
 xaxis_co2  = NULL
+p1lwd_h2o  = 1.15
+p1lwd_co2  = 1.5
+p1col_h2o  = "lightgray"
+p1col_co2  = "gray"
 
-for (var in c("case","Hklim","Hlim","xunits","xaxis")){
+for (var in c("case","Hklim","Hlim","xunits","xaxis","p1lwd","p1col")){
 	assign(var,eval(as.name(paste(var,gas,sep="_"))))
 }
 
@@ -29,6 +34,7 @@ D      = 1.5  # diffusion parameter
 Nsec   = 3600*24   # sec/day
 fac2d  = g/Cp*Nsec*1e2  # pppf to K/day/cm^-1
 fac1d  = -g/Cp*Nsec      # pppf to K/day
+ncoarse = 10
 fields = c("gx","ax","sx","cts","coo")
 fieldnames = c("GX","AX","SX","CTS","H")
 
@@ -49,6 +55,7 @@ pvec    = (nz-1):1
 coo2d   = ncvar_get(nc,"coo")/fac2d     # convert to SI 
 opt     = D*ncvar_get(nc,"opt")
 flx2d   = ncvar_get(nc,"flx")*1e-2      # W/m^2/m^-1
+ncoarse = 1000/dk
 
 #=========#
 # Process #
@@ -64,6 +71,8 @@ B_i      = outer(k,tabs,planck_k)
 B_s      = outer(k,tabs_s,planck_k)
 opt_surf = opt[ ,1]%o%(rep(1,times=(nz-1)))
 B_surf   = B_i[ ,1]%o%(rep(1,times=(nz-1)))
+ktp      = min(which(tabs==min(tabs)))
+ptp      = p[ktp]
 
 # 2d terms
 cts2d_s  = pi*B_s*exp(-opt_s)*dtaudp2d  #s, z_s, W/m^2/Pa/m^-1, pppf units
@@ -90,6 +99,13 @@ for (field in fields){
     assign(paste(field,"1d",sep=""), apply(field2d,2,sum)*dk)  # W/m^2/Pa
 }
 
+# tau=1
+p1  = array(dim=c(nk))
+for (m in 1:nk){
+    p1[m] = p_s[which.min(abs(log(opt_s[m,])))]
+}
+p1_coarse = coarse_grain(p1,ncoarse)
+
 #=======#
 # Plot  #
 #=======#
@@ -108,7 +124,7 @@ Hk_units   = expression(K/d*a*y/cm^{-1})
 
 # PDF
 file = paste("~/Dropbox/18cts/plots/realgas_decomp_",gas,".pdf",sep="")
-pdf(file,width=14.85,height=10,bg="white")
+pdf(file,width=14.9,height=10,bg="white")
 par(oma=c(0,6,0,5),tcl=-0.65)
 set.panel(2,3)
 for (k_field in 1:5){
@@ -116,8 +132,8 @@ for (k_field in 1:5){
 	fieldname = fieldnames[k_field]
     varname = paste(field,"2d_s",sep="")
     var = eval(as.name(varname))
-    var_coarse = coarse_grain(var,10)
-    k_coarse   = coarse_grain(k,10)
+    var_coarse = coarse_grain(var,ncoarse)
+    k_coarse   = coarse_grain(k,ncoarse)
 
 
 	par(mar=c(5,0,5,0))
@@ -157,8 +173,14 @@ for (k_field in 1:5){
 	if (field=="sx"){
 		title("")
 		mtext(Hk_units,3,line=0,at=xunits,cex=1.5)
+		abline(h=1e-2*ptp,lty="dotted",col="gray",lwd=2)
 	}
-	#set.panel()
+
+	#Add panel label
+    mtext(letters[k_field],1,line=-1.5,adj=0.02,cex=1.5,col="darkgray")
+
+	# Add p1
+	points(1e-2*k_coarse,1e-2*p1_coarse,type="l",lty="dashed",lwd=p1lwd,col=p1col)	
 }
 
 # H profiles
@@ -172,7 +194,8 @@ plot(1,type="n", xlim = Hlim, ylim=plim,
 	cex.main = cex)
 #axis(2,cex.axis=1e-5)
 axis(1,cex.axis=cex)
-abline(v=0,lty="dashed",col="gray",lwd=2)
+abline(v=0,lty="dotted",col="gray",lwd=2)
+abline(h=1e-2*ptp,lty="dotted",col="gray",lwd=2)
 for (n in 1:length(fields)){
     field = fields[n]
     lty   = ltyvec[n]
@@ -181,4 +204,6 @@ for (n in 1:length(fields)){
     points(fac1d*var,1e-2*p_s,type="l",lwd=lwd,lty=lty,col=col)
 }
 legend("topleft",legend=fieldnames,lty=ltyvec,lwd=lwd,col=colvec,cex=cex-0.25)
+mtext(letters[6],1,line=-1.5,adj=0.02,cex=1.5,col="darkgray")
+
 dev.off()
