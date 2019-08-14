@@ -8,8 +8,8 @@ source(paste(Rtoolsdir,"gray_model.R",sep=""))
 source("plot_params.R")
 
 # data params
-#cases = c("co2_noctm_Ts300_rh0.75_gamma7","h2o_noctm_Ts300_rh0.75_gamma7")
-cases = c("co2_only_simple_atm","h2o_only_no_cont")
+cases = c("co2_noctm_Ts300_rh0.75_gamma7","h2o_noctm_Ts300_rh0.75_gamma7")
+#cases = c("co2_only_simple_atm","h2o_only_no_cont")
 D     = 1.5  # diffusion parameter
 
 # plot params
@@ -18,7 +18,7 @@ Hlim_h2o = c(-3,0)
 Hlim_co2 = c(-0.7,0.2)
 fields 	= c("coo","sx","ax","gex","cts","sum")
 fieldnames = c(expression(H[k]),"SX","AX","GX","CTS","sum")
-N_fields= length(fields) # no sum
+N_fields= length(fields) 
 ltyvec	= c("dashed",rep("solid",times=4),"solid")
 colvec  = c("black","forestgreen","orange","red","blue","black")
 lwd     = 4
@@ -43,7 +43,7 @@ for (i in 1:2){
 	#=======#
 	
 	# Get data
-	ncpath  = paste("~/Dropbox/17rad_cooling2/data/",case,".nc",sep="")
+	ncpath  = paste("~/Dropbox/17rad_cooling2/data_paper/",case,".nc",sep="")
 	nc      = nc_open(ncpath)
 	k       = ncvar_get(nc,"k")
 	dk		= k[2]-k[1]

@@ -11,10 +11,11 @@ source(paste(Rtoolsdir,"gray_model.R",sep=""))
 
 gas    = "co2"
 case_h2o   = "h2o_only_no_cont"
-#case_h2o   = "h2o_noctm_Ts300_rh0.75_gamma7"
+case_h2o   = "h2o_noctm_Ts300_rh0.75_gamma7"
 case_co2   = "co2_only_simple_atm"
+case_co2   = "co2_noctm_Ts300_rh0.75_gamma7"
 Hklim_h2o = c(-0.9e-2,0.5e-2) # K/day/cm^-1
-Hklim_co2 = 0.5*Hklim_h2o
+Hklim_co2 = 0.65*Hklim_h2o
 Hlim_h2o   = c(-3.8,0.5)   # K/day
 Hlim_co2   = c(-1,0.25)   # K/day
 xunits_h2o = 1720
@@ -43,7 +44,7 @@ fieldnames = c("GX","AX","SX","CTS","H")
 # Data  #
 #=======#
 
-ncpath  = paste("~/Dropbox/17rad_cooling2/data/",case,".nc",sep="")
+ncpath  = paste("~/Dropbox/17rad_cooling2/data_paper/",case,".nc",sep="")
 nc      = nc_open(ncpath)
 k       = ncvar_get(nc,"k")
 dk      = k[2]-k[1]
