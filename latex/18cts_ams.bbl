@@ -89,7 +89,7 @@ Jeevanjee, N., and S.~Fueglistaler, 2019: {An analytical real gas model for
 \bibitem[{Jeevanjee and Romps(2018)Jeevanjee, and Romps}]{jeevanjee2018}
 Jeevanjee, N., and D.~M. Romps, 2018: {Mean precipitation change from a
   deepening troposphere}. \textit{Proceedings of the National Academy of
-  Sciences}, 201720683.
+  Sciences}, \textbf{115~(45)}, 11\,465--11\,470.
 
 \bibitem[{Joseph et~al.(1976)Joseph, Bursztyn, Joseph,, and
   Bursztyn}]{joseph1976}
@@ -112,8 +112,8 @@ Pierrehumbert, R.~T., 2010: \textit{{Principles of Planetary Climate}}.
   Cambridge University Press, Cambridge, UK.
 
 \bibitem[{Robinson and Catling(2012)Robinson, and Catling}]{robinson2012}
-Robinson, T.~D., and D.~C. Catling, 2012: {AN ANALYTIC RADIATIVE-CONVECTIVE
-  MODEL FOR PLANETARY ATMOSPHERES}. \textit{The Astrophysical Journal},
+Robinson, T.~D., and D.~C. Catling, 2012: {An analytic radiative-convective
+  model For planetary atmospheres}. \textit{The Astrophysical Journal},
   \textbf{757~(1)}, 104.
 
 \bibitem[{Rodgers and Walshaw(1966)Rodgers, and Walshaw}]{rodgers1966}
@@ -134,7 +134,7 @@ Thomas, G.~E., and K.~Stamnes, 2002: \textit{{Radiative Transfer in the
 \bibitem[{Thuburn and Craig(2002)Thuburn, and Craig}]{thuburn2002}
 Thuburn, J., and G.~C. Craig, 2002: {On the temperature structure of the
   tropical substratosphere}. \textit{Journal of Geophysical Research:
-  {\ldots}}, \textbf{107}, 1--10.
+  Atmospheres}, \textbf{107}, 1--10.
 
 \bibitem[{Wallace and Hobbs(2006)Wallace, and Hobbs}]{wallace2006}
 Wallace, J.~M., and P.~V. Hobbs, 2006: \textit{{Atmospheric Science: An
@@ -151,10 +151,9 @@ Zagoni, M., 2016: {Fifty years of the cooling-to-space approximation and its
   https://www.researchgate.net/publication/297733336{\_}Fifty{\_}years{\_}of{\_}the{\_}cooling-to-space{\_}approximation{\_}and{\_}its{\_}uses{\_}today}.
 
 \bibitem[{Zhu et~al.(1992)Zhu, Summers,, and Strobel}]{zhu1992}
-Zhu, X., M.~E. Summers, and D.~F. Strobel, 1992: {Calculation of CO
-  {\textless}sub{\textgreater}2{\textless}/sub{\textgreater} 15-$\mu$m band
-  atmospheric cooling rates by Curtis matrix interpolation of correlated-
-  {\textless}i{\textgreater}k{\textless}/i{\textgreater} coefficients}.
-  \textit{Journal of Geophysical Research}, \textbf{97~(D12)}, 12\,787.
+Zhu, X., M.~E. Summers, and D.~F. Strobel, 1992: {Calculation of CO2 15-$\mu$m
+  band atmospheric cooling rates by Curtis matrix interpolation of correlated-k
+  coefficients}. \textit{Journal of Geophysical Research}, \textbf{97~(D12)},
+  12\,787.
 
 \end{thebibliography}

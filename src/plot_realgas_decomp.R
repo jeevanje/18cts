@@ -9,7 +9,7 @@ source(paste(Rtoolsdir,"plot_tools.R",sep=""))
 source(paste(Rtoolsdir,"my_image_plot.R",sep=""))
 source(paste(Rtoolsdir,"gray_model.R",sep=""))
 
-gas    = "co2"
+gas    = args[1]
 case_h2o   = "h2o_only_no_cont"
 case_h2o   = "h2o_noctm_Ts300_rh0.75_gamma7"
 case_co2   = "co2_only_simple_atm"

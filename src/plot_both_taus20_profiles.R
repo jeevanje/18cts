@@ -17,7 +17,7 @@ coo_lim = c(-0.015,0.002) # K/day/cm^-1
 Hlim_h2o = c(-3,0)
 Hlim_co2 = c(-0.7,0.2)
 fields 	= c("coo","sx","ax","gex","cts","sum")
-fieldnames = c(expression(H[k]),"SX","AX","GX","CTS","sum")
+fieldnames = c(expression(H[tilde(nu)]),"SX","AX","GX","CTS","sum")
 N_fields= length(fields) 
 ltyvec	= c("dashed",rep("solid",times=4),"solid")
 colvec  = c("black","forestgreen","orange","red","blue","black")
@@ -27,7 +27,7 @@ cex		= 1.75
 cex_leg = 1.5
 plab    = "p (hPa)"
 p_lim   = c(1000,0.1)
-Hklab   = expression(H[k]~~"("*K/day/cm^{-1}*")")
+Hklab   = expression(H[tilde(nu)]~~"("*K/day/cm^{-1}*")")
 gasnames = c(expression(C*O[2]),expression(H[2]*O))
 
 # PDF
